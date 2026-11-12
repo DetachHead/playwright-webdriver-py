@@ -236,6 +236,7 @@ class PlaywrightWebDriver:
     def navigate(self) -> PlaywrightNavigation:
         return PlaywrightNavigation(self)
 
+    @property
     def switch_to(self) -> PlaywrightTargetLocator:
         return PlaywrightTargetLocator(self)
 
