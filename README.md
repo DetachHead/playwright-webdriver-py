@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> I am not the original author of this package. [I found it on pypi](https://pypi.org/project/playwright-webdriver-py) and noticed its github repo is gone. Since I found it useful and needed to make some fixes, I decided to re-publish it and maintain it myself.
+
 # playwright-webdriver-py
 
 **Run existing Selenium WebDriver Python scripts using Playwright as the browser backend — no ChromeDriver or browser binary installation required.**
