@@ -100,20 +100,6 @@
       "severity": "error"
     },
     {
-      "column": 28,
-      "path": "playwright_webdriver/playwright_cookie_jar.py",
-      "name": "unknown-argument-type",
-      "concise_description": "The type of this argument is unknown",
-      "severity": "error"
-    },
-    {
-      "column": 30,
-      "path": "playwright_webdriver/playwright_cookie_jar.py",
-      "name": "unknown-argument-type",
-      "concise_description": "The type of this argument is unknown",
-      "severity": "error"
-    },
-    {
       "column": 39,
       "path": "playwright_webdriver/playwright_cookie_jar.py",
       "name": "unknown-argument-type",
@@ -146,20 +132,6 @@
       "path": "playwright_webdriver/playwright_cookie_jar.py",
       "name": "implicit-any-type-argument",
       "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
-      "severity": "error"
-    },
-    {
-      "column": 28,
-      "path": "playwright_webdriver/playwright_cookie_jar.py",
-      "name": "unknown-argument-type",
-      "concise_description": "The type of this argument is unknown",
-      "severity": "error"
-    },
-    {
-      "column": 30,
-      "path": "playwright_webdriver/playwright_cookie_jar.py",
-      "name": "unknown-argument-type",
-      "concise_description": "The type of this argument is unknown",
       "severity": "error"
     },
     {
@@ -265,13 +237,6 @@
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "implicit-any-type-argument",
       "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
-      "severity": "error"
-    },
-    {
-      "column": 28,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "explicit-any",
-      "concise_description": "Explicit `Any` is not allowed",
       "severity": "error"
     },
     {
@@ -436,7 +401,7 @@
       "severity": "error"
     },
     {
-      "column": 20,
+      "column": 72,
       "path": "playwright_webdriver/runner.py",
       "name": "implicit-any-type-argument",
       "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
@@ -471,7 +436,7 @@
       "severity": "error"
     },
     {
-      "column": 32,
+      "column": 31,
       "path": "playwright_webdriver/runner.py",
       "name": "explicit-any",
       "concise_description": "Explicit `Any` is not allowed",

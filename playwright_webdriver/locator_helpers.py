@@ -1,18 +1,19 @@
+from __future__ import annotations
+
 from selenium.webdriver.common.by import By
 
 from .playwright_by import PlaywrightBy
-
 
 # Maps the string that selenium.webdriver.common.by.By stores as the
 # "using" / mechanism value to the Playwright selector prefix.
 _MECHANISM_MAP: dict[str, str | None] = {
     By.XPATH: "xpath",
     By.CSS_SELECTOR: "css",
-    By.TAG_NAME: None,         # Playwright accepts bare tag names as CSS
-    By.ID: None,               # handled explicitly → #id
-    By.NAME: None,             # handled explicitly → [name='…']
-    By.CLASS_NAME: None,       # handled explicitly → .classname
-    By.LINK_TEXT: None,        # handled explicitly → a:text-is("…")
+    By.TAG_NAME: None,  # Playwright accepts bare tag names as CSS
+    By.ID: None,  # handled explicitly → #id
+    By.NAME: None,  # handled explicitly → [name='…']
+    By.CLASS_NAME: None,  # handled explicitly → .classname
+    By.LINK_TEXT: None,  # handled explicitly → a:text-is("…")
     By.PARTIAL_LINK_TEXT: None,  # handled explicitly → a:has-text("…")
 }
 
@@ -24,8 +25,8 @@ def get_locator_string(by: By | tuple[str, str] | str, value: str | None = None)
     Accepts three calling conventions:
 
     1. ``get_locator_string(PlaywrightBy.selector("text=Submit"))``
-    2. ``get_locator_string(By.ID, "my-id")``          – (strategy, value) pair
-    3. ``get_locator_string((By.ID, "my-id"))``         – tuple
+    2. ``get_locator_string(By.ID, "my-id")``          - (strategy, value) pair
+    3. ``get_locator_string((By.ID, "my-id"))``         - tuple
 
     Returns a string suitable for ``page.locator(…)`` or ``locator.locator(…)``.
     """

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 class PlaywrightNavigation:
     """Port of ``PlaywrightNavigation : INavigation``."""
 
-    def __init__(self, driver: "PlaywrightWebDriver") -> None:
+    def __init__(self, driver: PlaywrightWebDriver) -> None:
         self._driver = driver
 
     def back(self) -> None:

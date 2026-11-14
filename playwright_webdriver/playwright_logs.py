@@ -12,10 +12,10 @@ class PlaywrightLogs:
     Playwright does not expose a WebDriver-style log API.
     """
 
-    def __init__(self, driver: "PlaywrightWebDriver") -> None:
+    def __init__(self, driver: PlaywrightWebDriver) -> None:
         self._driver = driver
 
-    def get(self, log_kind: str) -> list[dict]:
+    def get(self, log_kind: str) -> list[dict]:  # ruff: ignore[no-self-use] TODO: what is this? doesnt seem to map to anything in webdriver
         return []
 
     @property

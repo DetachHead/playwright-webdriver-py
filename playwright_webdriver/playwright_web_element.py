@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from playwright.sync_api import Locator
-from selenium.webdriver.common.by import By
-
-from .locator_helpers import get_locator_string
 from .keys_mapper import split_into_chunks
+from .locator_helpers import get_locator_string
+
+if TYPE_CHECKING:
+    from playwright.sync_api import Locator
 
 
 class PlaywrightWebElement:
@@ -26,11 +26,11 @@ class PlaywrightWebElement:
     # Element discovery
     # ------------------------------------------------------------------
 
-    def find_element(self, by: str, value: str) -> "PlaywrightWebElement":
+    def find_element(self, by: str, value: str) -> PlaywrightWebElement:
         loc_str = get_locator_string(by, value)
         return PlaywrightWebElement(self._locator.locator(loc_str).first, loc_str)
 
-    def find_elements(self, by: str, value: str) -> list["PlaywrightWebElement"]:
+    def find_elements(self, by: str, value: str) -> list[PlaywrightWebElement]:
         loc_str = get_locator_string(by, value)
         locator = self._locator.locator(loc_str)
         return [PlaywrightWebElement(loc, loc_str) for loc in locator.all()]
@@ -95,7 +95,7 @@ class PlaywrightWebElement:
     # Shadow DOM
     # ------------------------------------------------------------------
 
-    def get_shadow_root(self) -> "PlaywrightWebElement":
+    def get_shadow_root(self) -> PlaywrightWebElement:
         """Return self — shadow DOM children are found via playwright selectors."""
         return self
 

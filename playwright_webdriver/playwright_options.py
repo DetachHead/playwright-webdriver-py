@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class PlaywrightOptions:
     """Port of ``PlaywrightOptions : IOptions``."""
 
-    def __init__(self, driver: "PlaywrightWebDriver") -> None:
+    def __init__(self, driver: PlaywrightWebDriver) -> None:
         self._driver = driver
 
     def timeouts(self) -> PlaywrightTimeouts:

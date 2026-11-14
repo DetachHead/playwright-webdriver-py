@@ -9,7 +9,6 @@ to this file — referenced via ``file://`` URIs so no web server is needed.
 
 from __future__ import annotations
 
-import os
 import tempfile
 import threading
 from functools import partial
@@ -19,7 +18,7 @@ from pathlib import Path
 import pytest
 from selenium.webdriver.common.by import By
 
-from playwright_webdriver import PlaywrightBy, PlaywrightWebDriver
+from playwright_webdriver import PlaywrightWebDriver
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -38,6 +37,9 @@ def http_server():
     """
     Serve the html_pages directory over HTTP so cookie tests have a real domain.
     Mirrors what the C# tests do with an ASP.NET Core test server.
+
+    Yields:
+        the URL of the server
     """
     handler = partial(SimpleHTTPRequestHandler, directory=str(HTML_DIR))
     server = HTTPServer(("127.0.0.1", 0), handler)
@@ -140,7 +142,7 @@ def test_shadow_dom():
     try:
         driver.get(page_url("shadow_dom.html"))
         # Playwright's >> css= pierces shadow boundaries; use the pierce: prefix
-        span = driver.find_element(By.CSS_SELECTOR, "#host > span")
+        _ = driver.find_element(By.CSS_SELECTOR, "#host > span")
         # The shadow DOM span is accessible via Playwright's auto-piercing locator
         # Fall back to evaluating JS to confirm shadow content exists
         text = driver.execute_script(
@@ -294,9 +296,9 @@ def test_file_input():
             value = driver.execute_script(
                 "return document.getElementById('file-input').files[0].name"
             )
-            assert value == os.path.basename(tmp_path)
+            assert value == Path(tmp_path).name
         finally:
-            os.unlink(tmp_path)
+            Path(tmp_path).unlink()
     finally:
         driver.quit()
 
@@ -323,7 +325,7 @@ def test_switch_to_default_content():
     driver = make_driver()
     try:
         driver.get(page_url("windows/window1.html"))
-        original_handle = driver.current_window_handle
+        _ = driver.current_window_handle
 
         driver.switch_to.new_window("tab")
         driver.get(page_url("windows/window2.html"))

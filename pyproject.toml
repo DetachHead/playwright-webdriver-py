@@ -105,6 +105,7 @@ ignore = [
   "too-many-branches",
   "too-many-statements",
   "too-many-nested-blocks",
+  "too-many-public-methods",
   "magic-value-comparison",
   "sys-exit-alias",
   "redefined-loop-name",
@@ -145,6 +146,8 @@ ignore = [
   "trailing-whitespace", # covered by formatter + false positives inside multiline strings
   "blank-line-with-whitespace", # covered by formatter + false positives inside multiline strings
   "missing-todo-link",
+  "unused-method-argument", # covered by pyrefly,
+  "property-docstring-starts-with-verb",
 ]
 
 [tool.ruff.lint.flake8-pytest-style]
@@ -153,6 +156,10 @@ fixture-parentheses = false
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = [
   "assert", # pytest uses assert statements
+]
+"examples/**/*.py" = [
+  "assert",
+  "print",
 ]
 [tool.ruff.lint.isort]
 combine-as-imports = true

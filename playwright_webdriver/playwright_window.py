@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 class PlaywrightWindow:
     """Port of ``PlaywrightWindow : IWindow``."""
 
-    def __init__(self, driver: "PlaywrightWebDriver") -> None:
+    def __init__(self, driver: PlaywrightWebDriver) -> None:
         self._driver = driver
 
     def maximize(self) -> None:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from selenium.webdriver.common.by import By
 
 
@@ -16,5 +18,5 @@ class PlaywrightBy(By):
         return self._playwright_locator
 
     @classmethod
-    def selector(cls, playwright_locator: str) -> "PlaywrightBy":
+    def selector(cls, playwright_locator: str) -> PlaywrightBy:
         return cls(playwright_locator)

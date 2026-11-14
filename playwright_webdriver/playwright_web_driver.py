@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import contextlib
 import re
 import uuid
-from typing import Any
+from typing import Any, Self
 
 from playwright.sync_api import (
     Browser,
@@ -12,12 +13,10 @@ from playwright.sync_api import (
     Playwright,
     sync_playwright,
 )
-from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
 from .locator_helpers import get_locator_string
 from .playwright_browser_type import PlaywrightBrowserType
-from .playwright_by import PlaywrightBy
 from .playwright_navigation import PlaywrightNavigation
 from .playwright_options import PlaywrightOptions
 from .playwright_target_locator import PlaywrightTargetLocator
@@ -49,11 +48,7 @@ class PlaywrightWebDriver:
     """
 
     def __init__(
-        self,
-        playwright: Playwright,
-        browser: Browser,
-        context: BrowserContext,
-        current_page: Page,
+        self, playwright: Playwright, browser: Browser, context: BrowserContext, current_page: Page
     ) -> None:
         self._playwright = playwright
         self._browser = browser
@@ -90,7 +85,7 @@ class PlaywrightWebDriver:
         browser_type: PlaywrightBrowserType = PlaywrightBrowserType.CHROMIUM,
         launch_options: dict | None = None,
         context_options: dict | None = None,
-    ) -> "PlaywrightWebDriver":
+    ) -> PlaywrightWebDriver:
         """
         Create a ``PlaywrightWebDriver`` using a synchronous Playwright context.
 
@@ -104,17 +99,16 @@ class PlaywrightWebDriver:
         context = browser.new_context(**(context_options or {}))
         page = context.new_page()
 
-        driver = cls(pw, browser, context, page)
-        return driver
+        return cls(pw, browser, context, page)
 
     # ------------------------------------------------------------------
     # Context manager support
     # ------------------------------------------------------------------
 
-    def __enter__(self) -> "PlaywrightWebDriver":
+    def __enter__(self) -> Self:
         return self
 
-    def __exit__(self, *_: Any) -> None:
+    def __exit__(self, *_: object) -> None:
         self.quit()
 
     # ------------------------------------------------------------------
@@ -145,7 +139,7 @@ class PlaywrightWebDriver:
 
         page.on("dialog", _handler)
 
-    def _new_page(self) -> "PlaywrightWebDriver":
+    def _new_page(self) -> PlaywrightWebDriver:
         page = self._context.new_page()
         key = str(uuid.uuid4())
         self._key_to_page[key] = page
@@ -153,7 +147,7 @@ class PlaywrightWebDriver:
         self._register_alert_handler(page)
         return self
 
-    def _set_frame(self, frame_locator: Any) -> "PlaywrightWebDriver":
+    def _set_frame(self, frame_locator: Any) -> PlaywrightWebDriver:
         self._current_frame_locators.append(frame_locator)
         return self
 
@@ -213,18 +207,12 @@ class PlaywrightWebDriver:
     def _quit_resources(self) -> None:
         self._key_to_page.clear()
         self._window_handles_in_order.clear()
-        try:
+        with contextlib.suppress(Exception):
             self._context.close()
-        except Exception:
-            pass
-        try:
+        with contextlib.suppress(Exception):
             self._browser.close()
-        except Exception:
-            pass
-        try:
+        with contextlib.suppress(Exception):
             self._playwright.stop()
-        except Exception:
-            pass
 
     # ------------------------------------------------------------------
     # Options / Navigation / SwitchTo
@@ -298,8 +286,7 @@ class PlaywrightWebDriver:
                 converted_args.append(arg)
 
         # Strip leading "return " — Playwright uses expression mode
-        if script.startswith("return "):
-            script = script[len("return "):]
+        script = script.removeprefix("return ")
 
         # Wrap scripts that reference ``arguments[N]`` so Playwright receives
         # them as a named parameter.

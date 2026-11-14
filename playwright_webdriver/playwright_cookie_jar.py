@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
@@ -11,7 +10,7 @@ if TYPE_CHECKING:
 class PlaywrightCookieJar:
     """Port of ``PlaywrightCookieJar : ICookieJar``."""
 
-    def __init__(self, driver: "PlaywrightWebDriver") -> None:
+    def __init__(self, driver: PlaywrightWebDriver) -> None:
         self._driver = driver
 
     # ------------------------------------------------------------------
@@ -54,8 +53,8 @@ class PlaywrightCookieJar:
         result: dict = {
             "name": cookie["name"],
             "value": cookie["value"],
-            "secure": bool(cookie.get("secure", False)),
-            "httpOnly": bool(cookie.get("httpOnly", False)),
+            "secure": bool(cookie.get("secure")),
+            "httpOnly": bool(cookie.get("httpOnly")),
         }
 
         # Playwright requires either url OR domain+path.  For file:// pages
@@ -83,8 +82,8 @@ class PlaywrightCookieJar:
             "value": cookie["value"],
             "domain": cookie.get("domain", ""),
             "path": cookie.get("path", "/"),
-            "secure": bool(cookie.get("secure", False)),
-            "httpOnly": bool(cookie.get("httpOnly", False)),
+            "secure": bool(cookie.get("secure")),
+            "httpOnly": bool(cookie.get("httpOnly")),
         }
 
         expires = cookie.get("expires")

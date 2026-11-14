@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 class PlaywrightTimeouts:
     """Port of ``PlaywrightTimeouts : ITimeouts``."""
 
-    def __init__(self, driver: "PlaywrightWebDriver") -> None:
+    def __init__(self, driver: PlaywrightWebDriver) -> None:
         self._driver = driver
 
     # ------------------------------------------------------------------
@@ -25,7 +25,7 @@ class PlaywrightTimeouts:
     def implicit_wait(self, seconds: float) -> None:
         self._driver.current_page.set_default_timeout(seconds * 1000)
 
-    def implicitly_wait(self, seconds: float) -> "PlaywrightTimeouts":
+    def implicitly_wait(self, seconds: float) -> PlaywrightTimeouts:
         self.implicit_wait = seconds
         return self
 
@@ -41,7 +41,7 @@ class PlaywrightTimeouts:
     def script_timeout(self, seconds: float) -> None:
         self._driver.current_page.set_default_timeout(seconds * 1000)
 
-    def set_script_timeout(self, seconds: float) -> "PlaywrightTimeouts":
+    def set_script_timeout(self, seconds: float) -> PlaywrightTimeouts:
         self.script_timeout = seconds
         return self
 
@@ -57,6 +57,6 @@ class PlaywrightTimeouts:
     def page_load_timeout(self, seconds: float) -> None:
         self._driver.current_page.set_default_navigation_timeout(seconds * 1000)
 
-    def set_page_load_timeout(self, seconds: float) -> "PlaywrightTimeouts":
+    def set_page_load_timeout(self, seconds: float) -> PlaywrightTimeouts:
         self.page_load_timeout = seconds
         return self

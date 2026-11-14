@@ -8,6 +8,7 @@ browser binary installation needed.
 Usage (from a Python module)::
 
     from playwright_webdriver.runner import run_selenium_script
+
     run_selenium_script("path/to/my_script.py", headless=False)
 
 Usage (CLI)::
@@ -30,22 +31,20 @@ selenium library unchanged — they work with any object that implements
 
 from __future__ import annotations
 
-import sys
+import contextlib
 from pathlib import Path
 from typing import Any
 
-from playwright_webdriver.playwright_web_driver import PlaywrightWebDriver
 from playwright_webdriver.playwright_browser_type import PlaywrightBrowserType
-
+from playwright_webdriver.playwright_web_driver import PlaywrightWebDriver
 
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
+
 def run_selenium_script(
-    script_path: str | Path,
-    headless: bool = False,
-    extra_globals: dict | None = None,
+    script_path: str | Path, *, headless: bool = False, extra_globals: dict | None = None
 ) -> None:
     """
     Run a Selenium Python script using ``PlaywrightWebDriver`` as the backend.
@@ -67,58 +66,60 @@ def run_selenium_script(
     # selenium.webdriver module rather than replacing the whole module.
     # Replacing it would break submodule imports like
     # ``selenium.webdriver.support.ui`` and ``selenium.webdriver.common.keys``.
-    import selenium.webdriver as _real_webdriver
-    import selenium.webdriver.chrome.service as _real_chrome_service
-    import selenium.webdriver.firefox.service as _real_firefox_service
+    import selenium.webdriver as _real_webdriver  # ruff: ignore[import-outside-top-level] TODO: what is this script... looks super wack. i dont rly wanna support it tbh
+    import selenium.webdriver.chrome.service as _real_chrome_service  # ruff: ignore[import-outside-top-level]
+    import selenium.webdriver.firefox.service as _real_firefox_service  # ruff: ignore[import-outside-top-level]
 
     launch_options = {"headless": headless}
 
     def _make_driver(*_args: Any, **_kwargs: Any) -> PlaywrightWebDriver:
         return PlaywrightWebDriver.create(
-            browser_type=PlaywrightBrowserType.CHROMIUM,
-            launch_options=launch_options,
+            browser_type=PlaywrightBrowserType.CHROMIUM, launch_options=launch_options
         )
 
     class _ServiceStub:
         def __init__(self, *_: Any, **__: Any) -> None: ...
 
     # Names to patch on the webdriver module
-    _driver_names = ("Chrome", "Firefox", "Edge", "Safari", "Remote",
-                     "ChromeOptions", "FirefoxOptions", "EdgeOptions")
-    _original_attrs: dict[str, Any] = {}
-    for name in _driver_names:
-        _original_attrs[name] = getattr(_real_webdriver, name, None)
+    driver_names = (
+        "Chrome",
+        "Firefox",
+        "Edge",
+        "Safari",
+        "Remote",
+        "ChromeOptions",
+        "FirefoxOptions",
+        "EdgeOptions",
+    )
+    original_attrs: dict[str, Any] = {}
+    for name in driver_names:
+        original_attrs[name] = getattr(_real_webdriver, name, None)
         setattr(_real_webdriver, name, _make_driver)
 
     # Patch Service stubs so Service() instantiation is a no-op
-    _orig_chrome_service = getattr(_real_chrome_service, "Service", None)
-    _orig_firefox_service = getattr(_real_firefox_service, "Service", None)
+    orig_chrome_service = getattr(_real_chrome_service, "Service", None)
+    orig_firefox_service = getattr(_real_firefox_service, "Service", None)
     _real_chrome_service.Service = _ServiceStub
     _real_firefox_service.Service = _ServiceStub
 
-    namespace: dict[str, Any] = {
-        "__file__": str(script_path),
-        "__name__": "__main__",
-    }
+    namespace: dict[str, Any] = {"__file__": str(script_path), "__name__": "__main__"}
     if extra_globals:
         namespace.update(extra_globals)
 
     try:
-        exec(compile(source, str(script_path), "exec"), namespace)  # noqa: S102
+        exec(compile(source, str(script_path), "exec"), namespace)  # ruff: ignore[exec-builtin]
     finally:
         # Restore all patched attributes
-        for name, original in _original_attrs.items():
+        for name, original in original_attrs.items():
             if original is None:
-                try:
+                with contextlib.suppress(AttributeError):
                     delattr(_real_webdriver, name)
-                except AttributeError:
-                    pass
             else:
                 setattr(_real_webdriver, name, original)
-        if _orig_chrome_service is not None:
-            _real_chrome_service.Service = _orig_chrome_service
-        if _orig_firefox_service is not None:
-            _real_firefox_service.Service = _orig_firefox_service
+        if orig_chrome_service is not None:
+            _real_chrome_service.Service = orig_chrome_service
+        if orig_firefox_service is not None:
+            _real_firefox_service.Service = orig_firefox_service
 
 
 # ---------------------------------------------------------------------------

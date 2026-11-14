@@ -15,7 +15,7 @@ class PlaywrightAlert:
     captured by that handler and exposed via the ``text`` property.
     """
 
-    def __init__(self, driver: "PlaywrightWebDriver") -> None:
+    def __init__(self, driver: PlaywrightWebDriver) -> None:
         self._driver = driver
 
     def accept(self) -> None:

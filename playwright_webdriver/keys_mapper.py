@@ -2,11 +2,13 @@
 Maps Selenium ``Keys`` unicode private-use characters to Playwright key names.
 
 Selenium represents special keys as single unicode characters in the private-use
-area (U+E000–U+F8FF).  Playwright's ``locator.press()`` / ``page.keyboard.press()``
+area (U+E000-U+F8FF).  Playwright's ``locator.press()`` / ``page.keyboard.press()``
 uses string names like ``"Enter"``, ``"Tab"``, etc.
 """
 
 # Maps every Selenium Keys constant value → Playwright key name
+from __future__ import annotations
+
 SELENIUM_TO_PLAYWRIGHT: dict[str, str] = {
     "\ue000": "Unidentified",
     "\ue001": "Cancel",
@@ -14,14 +16,14 @@ SELENIUM_TO_PLAYWRIGHT: dict[str, str] = {
     "\ue003": "Backspace",
     "\ue004": "Tab",
     "\ue005": "Clear",
-    "\ue006": "Enter",      # Keys.RETURN
-    "\ue007": "Enter",      # Keys.ENTER
+    "\ue006": "Enter",  # Keys.RETURN
+    "\ue007": "Enter",  # Keys.ENTER
     "\ue008": "Shift",
     "\ue009": "Control",
     "\ue00a": "Alt",
     "\ue00b": "Pause",
     "\ue00c": "Escape",
-    "\ue00d": " ",          # Keys.SPACE
+    "\ue00d": " ",  # Keys.SPACE
     "\ue00e": "PageUp",
     "\ue00f": "PageDown",
     "\ue010": "End",
@@ -62,7 +64,7 @@ SELENIUM_TO_PLAYWRIGHT: dict[str, str] = {
     "\ue03a": "F10",
     "\ue03b": "F11",
     "\ue03c": "F12",
-    "\ue03d": "Meta",       # Keys.COMMAND / Keys.META
+    "\ue03d": "Meta",  # Keys.COMMAND / Keys.META
     "\ue040": "ZenkakuHankaku",
     "\ue050": "Shift",
     "\ue051": "Control",
