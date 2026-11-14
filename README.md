@@ -99,56 +99,56 @@ with PlaywrightWebDriver.create(
 
 ### `PlaywrightWebDriver`
 
-| Method / Property | Notes |
-|---|---|
-| `driver.get(url)` | Navigates to URL |
-| `driver.find_element(by, value)` | Returns `PlaywrightWebElement` |
-| `driver.find_elements(by, value)` | Returns `list[PlaywrightWebElement]` |
-| `driver.execute_script(script, *args)` | Full JS execution; `arguments[N]` supported |
-| `driver.current_url` | Current page URL |
-| `driver.title` | Page title |
-| `driver.page_source` | Full HTML source |
-| `driver.maximize_window()` | Sets viewport to 1920×1080 |
-| `driver.close()` | Closes current tab |
-| `driver.quit()` | Closes browser and releases all resources |
-| `driver.navigate()` | Returns navigation object (`back`, `forward`, `refresh`, `to`) |
-| `driver.switch_to()` | Returns target locator (`frame`, `window`, `alert`, `default_content`) |
-| `driver.manage()` | Returns options object (cookies, timeouts, window) |
-| `driver.current_window_handle` | Handle for the current window/tab |
-| `driver.window_handles` | All open window/tab handles |
+| Method / Property                      | Notes                                                                  |
+| -------------------------------------- | ---------------------------------------------------------------------- |
+| `driver.get(url)`                      | Navigates to URL                                                       |
+| `driver.find_element(by, value)`       | Returns `PlaywrightWebElement`                                         |
+| `driver.find_elements(by, value)`      | Returns `list[PlaywrightWebElement]`                                   |
+| `driver.execute_script(script, *args)` | Full JS execution; `arguments[N]` supported                            |
+| `driver.current_url`                   | Current page URL                                                       |
+| `driver.title`                         | Page title                                                             |
+| `driver.page_source`                   | Full HTML source                                                       |
+| `driver.maximize_window()`             | Sets viewport to 1920×1080                                             |
+| `driver.close()`                       | Closes current tab                                                     |
+| `driver.quit()`                        | Closes browser and releases all resources                              |
+| `driver.navigate()`                    | Returns navigation object (`back`, `forward`, `refresh`, `to`)         |
+| `driver.switch_to`                     | Returns target locator (`frame`, `window`, `alert`, `default_content`) |
+| `driver.manage()`                      | Returns options object (cookies, timeouts, window)                     |
+| `driver.current_window_handle`         | Handle for the current window/tab                                      |
+| `driver.window_handles`                | All open window/tab handles                                            |
 
 ### `PlaywrightWebElement`
 
-| Method / Property | Notes |
-|---|---|
-| `element.click()` | Clicks the element |
-| `element.send_keys(*value)` | Text input; Selenium `Keys` constants supported |
-| `element.clear()` | Clears a text field |
-| `element.submit()` | Submits the form containing the element |
-| `element.find_element(by, value)` | Scoped element search |
-| `element.find_elements(by, value)` | Scoped element list |
-| `element.get_attribute(name)` | HTML attribute value |
-| `element.get_property(name)` | DOM property value |
-| `element.get_dom_attribute(name)` | DOM attribute (no fallback to property) |
-| `element.text` | Visible text content |
-| `element.tag_name` | Element tag name |
-| `element.is_displayed()` | `True` if the element is visible |
-| `element.is_enabled()` | `True` if the element is enabled |
-| `element.is_selected()` | `True` if a checkbox/radio is checked |
+| Method / Property                  | Notes                                           |
+| ---------------------------------- | ----------------------------------------------- |
+| `element.click()`                  | Clicks the element                              |
+| `element.send_keys(*value)`        | Text input; Selenium `Keys` constants supported |
+| `element.clear()`                  | Clears a text field                             |
+| `element.submit()`                 | Submits the form containing the element         |
+| `element.find_element(by, value)`  | Scoped element search                           |
+| `element.find_elements(by, value)` | Scoped element list                             |
+| `element.get_attribute(name)`      | HTML attribute value                            |
+| `element.get_property(name)`       | DOM property value                              |
+| `element.get_dom_attribute(name)`  | DOM attribute (no fallback to property)         |
+| `element.text`                     | Visible text content                            |
+| `element.tag_name`                 | Element tag name                                |
+| `element.is_displayed()`           | `True` if the element is visible                |
+| `element.is_enabled()`             | `True` if the element is enabled                |
+| `element.is_selected()`            | `True` if a checkbox/radio is checked           |
 
 ### Locator strategies
 
 All standard Selenium `By` strategies are supported:
 
-| `By` constant | Playwright selector |
-|---|---|
-| `By.ID` | `#value` |
-| `By.NAME` | `[name='value']` |
-| `By.CLASS_NAME` | `.value` |
-| `By.CSS_SELECTOR` | `css=value` |
-| `By.XPATH` | `xpath=value` |
-| `By.TAG_NAME` | bare tag selector |
-| `By.LINK_TEXT` | `a:visible:text-is("value")` (visible only, matching Selenium semantics) |
+| `By` constant          | Playwright selector                                                       |
+| ---------------------- | ------------------------------------------------------------------------- |
+| `By.ID`                | `#value`                                                                  |
+| `By.NAME`              | `[name='value']`                                                          |
+| `By.CLASS_NAME`        | `.value`                                                                  |
+| `By.CSS_SELECTOR`      | `css=value`                                                               |
+| `By.XPATH`             | `xpath=value`                                                             |
+| `By.TAG_NAME`          | bare tag selector                                                         |
+| `By.LINK_TEXT`         | `a:visible:text-is("value")` (visible only, matching Selenium semantics)  |
 | `By.PARTIAL_LINK_TEXT` | `a:visible:has-text("value")` (visible only, matching Selenium semantics) |
 
 In addition, `PlaywrightBy.selector(string)` passes a raw Playwright selector string through unchanged, giving you access to Playwright-specific features like `role=`, `text=`, and `:visible` filters:

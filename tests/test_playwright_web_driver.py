@@ -181,7 +181,7 @@ def test_alert():
     try:
         driver.get(page_url("alert.html"))
         # The dialog handler captures the text before auto-dismissing
-        alert = driver.switch_to().alert()
+        alert = driver.switch_to.alert()
         assert alert.text == "Hello! I am an alert box!!"
     finally:
         driver.quit()
@@ -229,14 +229,14 @@ def test_iframe():
 
         # Switch into the iframe
         frame_el = driver.find_element(By.ID, "frame1")
-        driver.switch_to().frame(frame_el)
+        driver.switch_to.frame(frame_el)
 
         # Content inside the iframe
         inner = driver.find_element(By.ID, "host")
         assert inner.text == "Window1!"
 
         # Navigate back to parent
-        driver.switch_to().parent_frame()
+        driver.switch_to.parent_frame()
         assert driver.find_element(By.ID, "iframe-root-page1").is_displayed
     finally:
         driver.quit()
@@ -256,10 +256,10 @@ def test_popup():
         original_handle = driver.current_window_handle
         popup_handle = next(h for h in handles if h != original_handle)
 
-        driver.switch_to().window(popup_handle)
+        driver.switch_to.window(popup_handle)
         assert driver.find_element(By.ID, "host").text == "Window1!"
 
-        driver.switch_to().window(original_handle)
+        driver.switch_to.window(original_handle)
     finally:
         driver.quit()
 
@@ -308,11 +308,11 @@ def test_switch_tabs():
         driver.get(page_url("tag_name.html"))
         original_handle = driver.current_window_handle
 
-        driver.switch_to().new_window("tab")
+        driver.switch_to.new_window("tab")
         driver.get(page_url("windows/window2.html"))
         assert driver.find_element(By.ID, "host").text == "Window2!"
 
-        driver.switch_to().window(original_handle)
+        driver.switch_to.window(original_handle)
         assert driver.find_element(By.ID, "host").text == "Host!"
     finally:
         driver.quit()
@@ -325,14 +325,14 @@ def test_switch_to_default_content():
         driver.get(page_url("windows/window1.html"))
         original_handle = driver.current_window_handle
 
-        driver.switch_to().new_window("tab")
+        driver.switch_to.new_window("tab")
         driver.get(page_url("windows/window2.html"))
 
-        driver.switch_to().new_window("tab")
+        driver.switch_to.new_window("tab")
         driver.get(page_url("windows/window3.html"))
         assert driver.find_element(By.ID, "host").text == "Window3!"
 
-        driver.switch_to().default_content()
+        driver.switch_to.default_content()
         assert driver.find_element(By.ID, "host").text == "Window1!"
     finally:
         driver.quit()
