@@ -95,7 +95,7 @@ class PlaywrightTargetLocator:
     def active_element(self) -> PlaywrightWebElement:
         loc_str = "*:focus"
         locator = self._driver.current_page.locator(loc_str).first
-        return PlaywrightWebElement(locator, loc_str)
+        return PlaywrightWebElement(locator, loc_str, parent=self._driver)
 
     def alert(self) -> PlaywrightAlert:
         return PlaywrightAlert(self._driver)

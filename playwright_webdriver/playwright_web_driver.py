@@ -170,7 +170,7 @@ class PlaywrightWebDriver:
         if locator.count() == 0:
             raise NoSuchElementException(f"No element found for ({by!r}, {value!r})")
 
-        return PlaywrightWebElement(locator, loc_str)
+        return PlaywrightWebElement(locator, loc_str, parent=self)
 
     def find_elements(self, by: str, value: str) -> list[PlaywrightWebElement]:
         loc_str = get_locator_string(by, value)
@@ -180,7 +180,7 @@ class PlaywrightWebDriver:
         else:
             locator = self._current_page.locator(loc_str)
 
-        return [PlaywrightWebElement(loc, loc_str) for loc in locator.all()]
+        return [PlaywrightWebElement(loc, loc_str, parent=self) for loc in locator.all()]
 
     def close(self) -> None:
         """Close the current window/tab."""

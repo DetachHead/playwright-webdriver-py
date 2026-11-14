@@ -1,12 +1,14 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Final
 
 from .keys_mapper import split_into_chunks
 from .locator_helpers import get_locator_string
 
 if TYPE_CHECKING:
     from playwright.sync_api import Locator
+
+    from playwright_webdriver import PlaywrightWebDriver
 
 
 class PlaywrightWebElement:
@@ -18,7 +20,10 @@ class PlaywrightWebElement:
     required in the original C# version.
     """
 
-    def __init__(self, locator: Locator, locator_string: str) -> None:
+    def __init__(
+        self, locator: Locator, locator_string: str, *, parent: PlaywrightWebDriver
+    ) -> None:
+        self.parent: Final[PlaywrightWebDriver] = parent
         self._locator = locator
         self._locator_string = locator_string
 
@@ -28,12 +33,14 @@ class PlaywrightWebElement:
 
     def find_element(self, by: str, value: str) -> PlaywrightWebElement:
         loc_str = get_locator_string(by, value)
-        return PlaywrightWebElement(self._locator.locator(loc_str).first, loc_str)
+        return PlaywrightWebElement(
+            self._locator.locator(loc_str).first, loc_str, parent=self.parent
+        )
 
     def find_elements(self, by: str, value: str) -> list[PlaywrightWebElement]:
         loc_str = get_locator_string(by, value)
         locator = self._locator.locator(loc_str)
-        return [PlaywrightWebElement(loc, loc_str) for loc in locator.all()]
+        return [PlaywrightWebElement(loc, loc_str, parent=self.parent) for loc in locator.all()]
 
     # ------------------------------------------------------------------
     # Interactions
