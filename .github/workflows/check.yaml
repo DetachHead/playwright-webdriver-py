@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: ./pw uv sync
+      - run: ./pw install-browsers
       - run: ./pw test
   static_checks:
     runs-on: codeberg-small

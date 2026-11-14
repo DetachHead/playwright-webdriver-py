@@ -48,6 +48,9 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["playwright_webdriver"]
 
+[tool.pyprojectx.main]
+requirements = ["uv"]
+
 [tool.pyprojectx.aliases]
 # when adding an alias here, a vscode task should probably also be added too
 # unless there's already a task or something in vscode that does the same thing
@@ -59,6 +62,7 @@ ruff_check = ["uv run ruff check", "uv run ruff format --check --diff"]
 ruff_fix = ["uv run ruff check --fix", "uv run ruff format"]
 dprint = "uv run dprint check"
 dprint_fix = "uv run dprint fmt"
+install-browsers = "uv run playwright install --with-deps chromium-headless-shell"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
