@@ -39,6 +39,7 @@ dev = [
   "pyrefly>=1.4.1",
   "dprint-py>=0.64.3.0",
   "ruff>=0.17.5",
+  "rumdl>=0.3.4",
 ]
 
 [build-system]
@@ -161,3 +162,37 @@ split-on-trailing-comma = false
 [tool.ruff.format]
 skip-magic-trailing-comma = true
 docstring-code-format = true
+
+[tool.rumdl.global]
+flavor = "mkdocs"
+enable = ["ALL"]
+disable = [
+  # rules we disable because we don't like them or they aren't relevant to this project:
+  "descriptive-link-text", # usually fine because the surrounding text has context
+  "heading-capitalization",
+
+  # rules we disable because they conflict with dprint:
+  "list-continuation-indent",
+  "table-format",
+  "emphasis-style",
+  "line-length",
+]
+
+[tool.rumdl.MD033]
+allowed-elements = ["no-markdown-equivalent"]
+table-allowed-elements = ["no-markdown-equivalent"]
+
+[tool.rumdl.MD040]
+unknown-language-action = "warn"
+
+[tool.rumdl.MD057]
+compact-paths = true
+
+[tool.rumdl.MD063]
+style = "sentence-case"
+
+[tool.rumdl.MD082]
+allow-parent-headings = true
+
+[tool.rumdl.MD093]
+code = false

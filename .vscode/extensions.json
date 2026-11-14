@@ -8,7 +8,9 @@
     "github.vscode-github-actions",
     "dprint.dprint",
     "meta.pyrefly",
-    "detachhead.vsenv" // for dprint
+    "detachhead.vsenv", // for dprint
+    "rvben.rumdl",
+    "jota0222.multi-formatter"
   ],
   "unwantedRecommendations": [
     "ms-python.vscode-pylance"

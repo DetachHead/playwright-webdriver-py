@@ -1,13 +1,11 @@
+# playwright-webdriver-py
+
 > [!IMPORTANT]
 > I am not the original author of this package. [I found it on pypi](https://pypi.org/project/playwright-webdriver-py) and noticed its github repo is gone. Since I found it useful and needed to make some fixes, I decided to re-publish it and maintain it myself.
-
-# playwright-webdriver-py
 
 **Run existing Selenium WebDriver Python scripts using Playwright as the browser backend — no ChromeDriver or browser binary installation required.**
 
 `playwright-webdriver-py` is a drop-in compatibility layer that implements the Selenium WebDriver Python API over [Playwright's](https://playwright.dev/) synchronous API. Drop it in and your existing `webdriver.Chrome()` scripts run backed by Playwright; faster, more reliable, and without the ChromeDriver version-matching headache.
-
----
 
 ## Features
 
@@ -17,8 +15,6 @@
 - **Chromium, Firefox, and WebKit** backends via `PlaywrightBrowserType`
 - **CLI runner** — execute any `.py` Selenium script directly from the command line
 - **`PlaywrightBy`** — opt-in raw Playwright selector strings for power users
-
----
 
 ## Installation
 
@@ -35,8 +31,6 @@ playwright install
 ```
 
 **Requirements:** Python 3.12+
-
----
 
 ## Quick Start
 
@@ -85,15 +79,12 @@ from playwright_webdriver import PlaywrightWebDriver, PlaywrightBrowserType
 from selenium.webdriver.common.by import By
 
 with PlaywrightWebDriver.create(
-    browser_type=PlaywrightBrowserType.CHROMIUM,
-    launch_options={"headless": True},
+    browser_type=PlaywrightBrowserType.CHROMIUM, launch_options={"headless": True}
 ) as driver:
     driver.get("https://example.com")
     heading = driver.find_element(By.TAG_NAME, "h1")
     print(heading.text)  # "Example Domain"
 ```
-
----
 
 ## Supported Selenium API
 
@@ -159,8 +150,6 @@ from playwright_webdriver import PlaywrightBy
 btn = driver.find_element(PlaywrightBy.selector("role=button[name='Submit']"))
 ```
 
----
-
 ## Running Tests
 
 The test suite is a Python port of the original C# NUnit test suite from [Selenium.PlaywrightDriver](https://github.com/thomhurst/Selenium.PlaywrightDriver).
@@ -175,8 +164,6 @@ pytest tests/
 
 All tests use local HTML fixtures and an ephemeral HTTP server — no internet connection required.
 
----
-
 ## Examples
 
 The `examples/` directory contains real-world Selenium scripts that run unmodified through the CLI runner:
@@ -187,8 +174,6 @@ python -m playwright_webdriver.runner examples/apple_homepod_test.py
 python -m playwright_webdriver.runner examples/skyscanner_one_way_search_test.py
 ```
 
----
-
 ## How It Works
 
 The CLI runner monkey-patches `selenium.webdriver.Chrome` (and `Firefox`, `Edge`, `Remote`, etc.) on the **real** `selenium.webdriver` module before `exec()`-ing the script. This means:
@@ -196,8 +181,6 @@ The CLI runner monkey-patches `selenium.webdriver.Chrome` (and `Firefox`, `Edge`
 - `WebDriverWait`, `expected_conditions`, `Keys`, and all other Selenium helpers continue to import from the real Selenium package — nothing breaks.
 - The only substitution is the browser factory: `webdriver.Chrome()` returns a `PlaywrightWebDriver` instance backed by Playwright's Chromium.
 - All patches are restored in a `finally` block, so running multiple scripts in the same process is safe.
-
----
 
 ## License
 

@@ -31,3 +31,6 @@ jobs:
 
       - run: ./pw dprint
         if: always()
+
+      - run: ./pw uv run rumdl check --deny-config-warnings
+        if: always()

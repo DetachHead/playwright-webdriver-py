@@ -23,6 +23,12 @@
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
+  "[markdown]": {
+    "editor.defaultFormatter": "Jota0222.multi-formatter",
+    // dprint has a ruff plugin, but we use ruff instead so we dont need 2 separate installations of ruff.
+    "multiFormatter.formatterList": ["dprint.dprint", "charliermarsh.ruff"],
+    "editor.formatOnSave": true
+  },
   // why does vscode treat github actions yaml files as a separate language????
   "[toml][json][jsonc][yaml][markdown][github-actions-workflow]": {
     "editor.defaultFormatter": "dprint.dprint"
