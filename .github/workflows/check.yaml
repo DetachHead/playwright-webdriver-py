@@ -1,0 +1,32 @@
+name: check and publish
+
+on: push
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+    runs-on: codeberg-small
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./pw uv sync
+      - run: ./pw test
+  static_checks:
+    runs-on: codeberg-small
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: ./pw uv sync --locked
+
+      - run: ./pw uv run pyrefly check --error-stale-baseline
+
+      - name: ruff check
+        if: always()
+        run: ./pw uv run ruff check --output-format github
+
+      - name: ruff format
+        if: always()
+        run: ./pw uv run ruff format --check --diff
+
+      - run: ./pw dprint
+        if: always()

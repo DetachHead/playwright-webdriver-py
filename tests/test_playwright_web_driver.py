@@ -7,17 +7,19 @@ pattern) and cleans up after itself.  HTML fixtures live in html_pages/ next
 to this file — referenced via ``file://`` URIs so no web server is needed.
 """
 
+from __future__ import annotations
+
 import os
 import tempfile
 import threading
 from functools import partial
-from http.server import SimpleHTTPRequestHandler, HTTPServer
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 
 import pytest
 from selenium.webdriver.common.by import By
 
-from playwright_webdriver import PlaywrightWebDriver, PlaywrightBy
+from playwright_webdriver import PlaywrightBy, PlaywrightWebDriver
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -66,9 +68,7 @@ def test_script_with_return():
     driver = make_driver()
     try:
         driver.get(page_url("locators_test.html"))
-        result = driver.execute_script(
-            "return document.querySelector('#id1').textContent"
-        )
+        result = driver.execute_script("return document.querySelector('#id1').textContent")
         assert result == "Id One"
     finally:
         driver.quit()
@@ -78,9 +78,7 @@ def test_script_without_return():
     driver = make_driver()
     try:
         driver.get(page_url("locators_test.html"))
-        result = driver.execute_script(
-            "document.querySelector('#id1').textContent"
-        )
+        result = driver.execute_script("document.querySelector('#id1').textContent")
         # Playwright returns the evaluated expression value
         assert result == "Id One"
     finally:
@@ -92,9 +90,7 @@ def test_script_with_selenium_style_arguments():
     try:
         driver.get(page_url("locators_test.html"))
         result = driver.execute_script(
-            "return `You passed in ${arguments[0]} and ${arguments[1]}`",
-            "Foo",
-            "Bar",
+            "return `You passed in ${arguments[0]} and ${arguments[1]}`", "Foo", "Bar"
         )
         assert result == "You passed in Foo and Bar"
     finally:
@@ -120,12 +116,8 @@ def test_locators():
         assert driver.find_element(By.ID, "id1").text == "Id One"
         assert driver.find_element(By.CLASS_NAME, "class1").text == "Class One"
         assert driver.find_element(By.TAG_NAME, "span").text == "Span One"
-        assert (
-            driver.find_element(By.CSS_SELECTOR, ".class1").text == "Class One"
-        )
-        assert (
-            driver.find_element(By.XPATH, "//div[@id='id1']").text == "Id One"
-        )
+        assert driver.find_element(By.CSS_SELECTOR, ".class1").text == "Class One"
+        assert driver.find_element(By.XPATH, "//div[@id='id1']").text == "Id One"
         assert driver.find_element(By.LINK_TEXT, "Link Text") is not None
         assert driver.find_element(By.PARTIAL_LINK_TEXT, "Link") is not None
         assert driver.find_element(By.NAME, "name1").text == "Name One"
@@ -148,9 +140,7 @@ def test_shadow_dom():
     try:
         driver.get(page_url("shadow_dom.html"))
         # Playwright's >> css= pierces shadow boundaries; use the pierce: prefix
-        span = driver.find_element(
-            By.CSS_SELECTOR, "#host > span"
-        )
+        span = driver.find_element(By.CSS_SELECTOR, "#host > span")
         # The shadow DOM span is accessible via Playwright's auto-piercing locator
         # Fall back to evaluating JS to confirm shadow content exists
         text = driver.execute_script(

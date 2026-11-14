@@ -1,0 +1,97 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // these tasks should be removed once one any of the following sets of issues are resolved:
+    // - https://github.com/pyprojectx/pyprojectx/issues/92
+    // - https://github.com/astral-sh/uv/issues/5903, https://github.com/astral-sh/uv/issues/8123,
+    {
+      "label": "install dependencies",
+      "type": "shell",
+      "command": "./pw",
+      "args": [
+        "uv",
+        "sync"
+      ],
+      "presentation": {
+        "clear": true
+      }
+    },
+    {
+      "label": "update pyprojectx dependencies",
+      "type": "shell",
+      "command": "./pw",
+      "args": [
+        "--lock"
+      ],
+      "presentation": {
+        "clear": true
+      }
+    },
+    {
+      "label": "update dependencies",
+      "type": "shell",
+      "command": "./pw",
+      "args": [
+        "update"
+      ],
+      "presentation": {
+        "clear": true
+      }
+    },
+    {
+      "label": "pyrefly",
+      "type": "shell",
+      "command": "./pw",
+      "args": [
+        "pyrefly"
+      ],
+      "presentation": {
+        "clear": true
+      }
+    },
+    {
+      "label": "pyrefly - update baseline",
+      "type": "shell",
+      "command": "./pw",
+      "args": [
+        "pyrefly_update_baseline"
+      ],
+      "presentation": {
+        "clear": true
+      }
+    },
+    {
+      "label": "ruff check",
+      "type": "shell",
+      "command": "./pw",
+      "args": [
+        "ruff_check"
+      ],
+      "presentation": {
+        "clear": true
+      }
+    },
+    {
+      "label": "ruff fix",
+      "type": "shell",
+      "command": "./pw",
+      "args": [
+        "ruff_fix"
+      ],
+      "presentation": {
+        "clear": true
+      }
+    },
+    {
+      "label": "dprint",
+      "type": "shell",
+      "command": "./pw",
+      "args": [
+        "dprint_fix"
+      ],
+      "presentation": {
+        "clear": true
+      }
+    }
+  ]
+}

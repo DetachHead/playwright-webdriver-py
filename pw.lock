@@ -1,0 +1,3 @@
+[main]
+requirements = ["uv==0.13.8"]
+hash = "976b6b031038890783158e4585a6297b"

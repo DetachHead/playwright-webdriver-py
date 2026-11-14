@@ -1,0 +1,621 @@
+{
+  "min_severity": "info",
+  "errors": [
+    {
+      "column": 1,
+      "path": "examples/apple_homepod_test.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `WebElement` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 1,
+      "path": "examples/apple_homepod_test.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `bool` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 5,
+      "path": "examples/wikipedia_smoke_test.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `WebElement` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 5,
+      "path": "examples/wikipedia_smoke_test.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `WebElement` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 21,
+      "path": "playwright_webdriver/locator_helpers.py",
+      "name": "bad-assignment",
+      "concise_description": "`By | str` is not assignable to `str`",
+      "severity": "error"
+    },
+    {
+      "column": 39,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 42,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "bad-argument-type",
+      "concise_description": "Argument `list[dict[Unknown, Unknown]]` is not assignable to parameter `cookies` with type `Sequence[SetCookieParam]` in function `playwright.sync_api._generated.BrowserContext.add_cookies`",
+      "severity": "error"
+    },
+    {
+      "column": 40,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 37,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 35,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 46,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "bad-argument-type",
+      "concise_description": "Argument `Cookie` is not assignable to parameter `cookie` with type `dict[Unknown, Unknown]` in function `PlaywrightCookieJar._from_playwright_cookie`",
+      "severity": "error"
+    },
+    {
+      "column": 45,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 54,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 17,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "unknown-argument-type",
+      "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "unknown-argument-type",
+      "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 39,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "unknown-argument-type",
+      "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 34,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "unknown-argument-type",
+      "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 41,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 50,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 17,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "unknown-argument-type",
+      "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "unknown-argument-type",
+      "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 36,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "unknown-argument-type",
+      "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 34,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "unknown-argument-type",
+      "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 42,
+      "path": "playwright_webdriver/playwright_logs.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "playwright_webdriver/playwright_navigation.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `Response | None` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "playwright_webdriver/playwright_navigation.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `Response | None` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "playwright_webdriver/playwright_navigation.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `Response | None` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "playwright_webdriver/playwright_navigation.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `Response | None` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 21,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "implicit-any-parameter",
+      "concise_description": "`frame` is missing an annotation for parameter `reference`",
+      "severity": "error"
+    },
+    {
+      "column": 29,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "unknown-variable-type",
+      "concise_description": "The type of `frame_locator` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 69,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "unknown-attribute-access",
+      "concise_description": "The type of attribute `frame_locator` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 92,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "unknown-attribute-access",
+      "concise_description": "The type of attribute `first` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 39,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_T` for generic class `list[_T]`",
+      "severity": "error"
+    },
+    {
+      "column": 25,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 26,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 41,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `Response | None` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 23,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "unknown-variable-type",
+      "concise_description": "The type of `locator` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 56,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "unknown-attribute-access",
+      "concise_description": "The type of attribute `locator` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 73,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "unknown-attribute-access",
+      "concise_description": "The type of attribute `first` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 23,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "unknown-variable-type",
+      "concise_description": "The type of `locator` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 56,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "unknown-attribute-access",
+      "concise_description": "The type of attribute `locator` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `Response | None` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 50,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 58,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "bad-assignment",
+      "concise_description": "`list[Any]` is not assignable to `tuple[Any, ...]`",
+      "severity": "error"
+    },
+    {
+      "column": 53,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "unknown-attribute-access",
+      "concise_description": "The type of attribute `owner` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 59,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "unknown-attribute-access",
+      "concise_description": "The type of attribute `evaluate` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 56,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 64,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 49,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 74,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 41,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_T` for generic class `list[_T]`",
+      "severity": "error"
+    },
+    {
+      "column": 27,
+      "path": "playwright_webdriver/playwright_web_element.py",
+      "name": "unnecessary-type-conversion",
+      "concise_description": "Unnecessary `str()` call; argument is already of type `str`",
+      "severity": "error"
+    },
+    {
+      "column": 16,
+      "path": "playwright_webdriver/playwright_web_element.py",
+      "name": "no-any-return-explicit",
+      "concise_description": "Returning Any from function declared to return \"str\"",
+      "severity": "error"
+    },
+    {
+      "column": 16,
+      "path": "playwright_webdriver/playwright_web_element.py",
+      "name": "no-any-return-explicit",
+      "concise_description": "Returning Any from function declared to return \"str\"",
+      "severity": "error"
+    },
+    {
+      "column": 20,
+      "path": "playwright_webdriver/runner.py",
+      "name": "implicit-any-type-argument",
+      "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 46,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 32,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 43,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 32,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 36,
+      "path": "playwright_webdriver/runner.py",
+      "name": "bad-assignment",
+      "concise_description": "`type[run_selenium_script._ServiceStub]` is not assignable to attribute `Service` with type `type[Service]`",
+      "severity": "error"
+    },
+    {
+      "column": 37,
+      "path": "playwright_webdriver/runner.py",
+      "name": "bad-assignment",
+      "concise_description": "`type[run_selenium_script._ServiceStub]` is not assignable to attribute `Service` with type `type[Service]`",
+      "severity": "error"
+    },
+    {
+      "column": 26,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any",
+      "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 5,
+      "path": "playwright_webdriver/runner.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `Action` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 5,
+      "path": "playwright_webdriver/runner.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `Action` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 17,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    },
+    {
+      "column": 17,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "implicit-any-parameter",
+      "concise_description": "`test_cookie` is missing an annotation for parameter `http_server`",
+      "severity": "error"
+    },
+    {
+      "column": 16,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "redundant-condition",
+      "concise_description": "Function object `playwright_webdriver.playwright_web_element.PlaywrightWebElement.is_displayed` used as condition. It's equivalent to `True`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    },
+    {
+      "column": 16,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "redundant-condition",
+      "concise_description": "Function object `playwright_webdriver.playwright_web_element.PlaywrightWebElement.is_displayed` used as condition. It's equivalent to `True`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `Response | None` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 13,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "unused-call-result",
+      "concise_description": "Result of call expression is of type `int` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "not-callable",
+      "concise_description": "Expected a callable, got `PlaywrightTargetLocator`",
+      "severity": "error"
+    }
+  ]
+}

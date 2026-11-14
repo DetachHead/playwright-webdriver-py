@@ -7,22 +7,22 @@ requires-python = ">=3.12"
 license = { text = "MIT" }
 license-files = ["LICENSE"]
 authors = [
-    { name = "HappyPath", email = "hello@happypath.io" },
+  { name = "HappyPath", email = "hello@happypath.io" },
 ]
 keywords = ["selenium", "playwright", "webdriver", "browser", "automation", "testing"]
 classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Topic :: Software Development :: Testing",
-    "Topic :: Software Development :: Libraries :: Python Modules",
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "playwright>=1.47.0",
-    "selenium>=4.41.0",
+  "playwright>=1.47.0",
+  "selenium>=4.41.0",
 ]
 
 [project.urls]
@@ -31,11 +31,14 @@ Repository = "https://github.com/happypath-team/playwright-webdriver-py"
 Issues = "https://github.com/happypath-team/playwright-webdriver-py/issues"
 Changelog = "https://github.com/happypath-team/playwright-webdriver-py/releases"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
-    "pytest>=8.0.0",
-    "build>=1.0.0",
-    "twine>=5.0.0",
+  "pytest>=8.0.0",
+  "build>=1.0.0",
+  "twine>=5.0.0",
+  "pyrefly>=1.4.1",
+  "dprint-py>=0.64.3.0",
+  "ruff>=0.17.5",
 ]
 
 [build-system]
@@ -45,5 +48,112 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["playwright_webdriver"]
 
+[tool.pyprojectx.aliases]
+# when adding an alias here, a vscode task should probably also be added too
+# unless there's already a task or something in vscode that does the same thing
+update = "uv lock --upgrade"
+test = "uv run pytest"
+pyrefly = "uv run pyrefly check --prune-baseline"
+pyrefly_update_baseline = "uv run pyrefly check --update-baseline"
+ruff_check = ["uv run ruff check", "uv run ruff format --check --diff"]
+ruff_fix = ["uv run ruff check --fix", "uv run ruff format"]
+dprint = "uv run dprint check"
+dprint_fix = "uv run dprint fmt"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.pyrefly]
+preset = "all"
+python-platform = "all"
+min-severity = "info"
+treat-all-caps-as-final = true
+enabled-ignores = ["pyrefly"]
+baseline-matching-mode = "column-ordered"
+baseline-auto-update = true
+baseline = "pyrefly-baseline.json"
+
+[tool.pyrefly.errors]
+implicit-bool = false
+
+[[tool.pyrefly.sub-config]]
+matches = "tests/**/*.py"
+[tool.pyrefly.sub-config.errors]
+# not public api, can just rely on inferred return type
+unannotated-return = false
+
+[tool.ruff]
+unsafe-fixes = true
+target-version = "py312"
+respect-gitignore = true
+line-length = 100
+preview = true
+extend-exclude = ["pw"]
+
+[tool.ruff.lint]
+extend-select = ["ALL"]
+ignore = [
+  "ANN", # flake8-annotations (covered by pyrefly)
+  "EM", # flake8-errmsg
+  "FIX", # flake8-fixme
+  "too-many-arguments",
+  "too-many-branches",
+  "too-many-statements",
+  "too-many-nested-blocks",
+  "magic-value-comparison",
+  "sys-exit-alias",
+  "redefined-loop-name",
+  "invalid-all-format", # covered by pyrefly
+  "too-many-return-statements",
+  "global-statement",
+  "type-name-incorrect-variance",
+  "useless-import-alias", # used by pyrefly for explicit re-export
+  "implicit-optional", # covered by pyrefly
+  "invalid-index-type", # covered by pyrefly
+  "raise-vanilla-class",
+  "raise-vanilla-args",
+  "D10", # Missing docstring
+  "incorrect-blank-line-before-class",
+  "missing-blank-line-after-summary",
+  "multi-line-summary-first-line",
+  "missing-trailing-period",
+  "non-imperative-mood",
+  "first-word-uncapitalized",
+  "docstring-starts-with-this",
+  "non-capitalized-section-name",
+  "missing-new-line-after-section-name",
+  "missing-terminal-punctuation",
+  "overload-with-docstring", # some language servers support it
+  "missing-blank-line-after-last-section",
+  "pytest-incorrect-pytest-import", # only for bad linters that can't check the qualname
+  "missing-todo-author",
+  "missing-copyright-notice",
+  "complex-structure",
+  "private-member-access", # covered by pyrefly
+  "single-line-implicit-string-concatenation", # conflicts with formatter
+  "missing-trailing-comma", # conflicts with formatter
+  "invalid-envvar-value", # covered by pyrefly
+  "unnecessary-multiline-docstring", # https://github.com/astral-sh/ruff/issues/6269
+  "docstring-missing-returns",
+  "docstring-missing-exception", # https://github.com/astral-sh/ruff/issues/12520
+  "runtime-cast-value", # quoted types look disgusting
+  "trailing-whitespace", # covered by formatter + false positives inside multiline strings
+  "blank-line-with-whitespace", # covered by formatter + false positives inside multiline strings
+  "missing-todo-link",
+]
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+  "assert", # pytest uses assert statements
+]
+[tool.ruff.lint.isort]
+combine-as-imports = true
+required-imports = ["from __future__ import annotations"]
+split-on-trailing-comma = false
+
+[tool.ruff.format]
+skip-magic-trailing-comma = true
+docstring-code-format = true
