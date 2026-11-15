@@ -38,3 +38,8 @@ htmlcov/
 # Playwright
 playwright-report/
 test-results/
+
+# robot shit
+log.html
+report.html
+output.xml

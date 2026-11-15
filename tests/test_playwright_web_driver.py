@@ -19,17 +19,11 @@ import pytest
 from selenium.webdriver.common.by import By
 
 from playwright_webdriver import PlaywrightWebDriver
+from tests.conftest import HTML_DIR, page_url
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
-
-HTML_DIR = Path(__file__).parent / "html_pages"
-
-
-def page_url(filename: str) -> str:
-    """Return a file:// URI for a fixture HTML file."""
-    return (HTML_DIR / filename).as_uri()
 
 
 @pytest.fixture(scope="module")

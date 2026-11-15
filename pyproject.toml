@@ -40,6 +40,8 @@ dev = [
   "dprint-py>=0.64.3.0",
   "ruff>=0.17.5",
   "rumdl>=0.3.4",
+  "pytest-robotframework>=4.6.3",
+  "robotframework-seleniumlibrary>=6.9.0",
   "pytest-playwright>=0.10.0",
 ]
 
