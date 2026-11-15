@@ -204,9 +204,12 @@ class PlaywrightWebDriver:
         """Maximize the browser viewport (mirrors driver.maximize_window() in Selenium)."""
         self._current_page.set_viewport_size({"width": 1920, "height": 1080})
 
-    def _quit_resources(self) -> None:
+    def _clear_state(self) -> None:
         self._key_to_page.clear()
         self._window_handles_in_order.clear()
+
+    def _quit_resources(self) -> None:
+        self._clear_state()
         with contextlib.suppress(Exception):
             self._context.close()
         with contextlib.suppress(Exception):

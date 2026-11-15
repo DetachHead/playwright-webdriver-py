@@ -50,291 +50,213 @@ def http_server():
     server.shutdown()
 
 
-def make_driver() -> PlaywrightWebDriver:
-    return PlaywrightWebDriver.create(launch_options={"headless": True})
-
-
 # ---------------------------------------------------------------------------
 # Tests — mirrors the C# test class order
 # ---------------------------------------------------------------------------
 
 
 def test_last_window_closed():
-    driver = make_driver()
+    driver = PlaywrightWebDriver.create(launch_options={"headless": True})
     driver.get(page_url("tag_name.html"))
     driver.quit()
     assert len(driver.key_to_page) == 0
 
 
-def test_script_with_return():
-    driver = make_driver()
-    try:
-        driver.get(page_url("locators_test.html"))
-        result = driver.execute_script("return document.querySelector('#id1').textContent")
-        assert result == "Id One"
-    finally:
-        driver.quit()
+def test_script_with_return(driver: PlaywrightWebDriver):
+    driver.get(page_url("locators_test.html"))
+    result = driver.execute_script("return document.querySelector('#id1').textContent")
+    assert result == "Id One"
 
 
-def test_script_without_return():
-    driver = make_driver()
-    try:
-        driver.get(page_url("locators_test.html"))
-        result = driver.execute_script("document.querySelector('#id1').textContent")
-        # Playwright returns the evaluated expression value
-        assert result == "Id One"
-    finally:
-        driver.quit()
+def test_script_without_return(driver: PlaywrightWebDriver):
+    driver.get(page_url("locators_test.html"))
+    result = driver.execute_script("document.querySelector('#id1').textContent")
+    # Playwright returns the evaluated expression value
+    assert result == "Id One"
 
 
-def test_script_with_selenium_style_arguments():
-    driver = make_driver()
-    try:
-        driver.get(page_url("locators_test.html"))
-        result = driver.execute_script(
-            "return `You passed in ${arguments[0]} and ${arguments[1]}`", "Foo", "Bar"
-        )
-        assert result == "You passed in Foo and Bar"
-    finally:
-        driver.quit()
+def test_script_with_selenium_style_arguments(driver: PlaywrightWebDriver):
+    driver.get(page_url("locators_test.html"))
+    result = driver.execute_script(
+        "return `You passed in ${arguments[0]} and ${arguments[1]}`", "Foo", "Bar"
+    )
+    assert result == "You passed in Foo and Bar"
 
 
-def test_script_with_element_argument():
-    driver = make_driver()
-    try:
-        driver.get(page_url("script_element_scroll.html"))
-        element = driver.find_element(By.ID, "id500")
-        # Should not raise — scrolls the element into view
-        driver.execute_script("arguments[0].scrollIntoView(true)", element)
-    finally:
-        driver.quit()
+def test_script_with_element_argument(driver: PlaywrightWebDriver):
+    driver.get(page_url("script_element_scroll.html"))
+    element = driver.find_element(By.ID, "id500")
+    # Should not raise — scrolls the element into view
+    driver.execute_script("arguments[0].scrollIntoView(true)", element)
 
 
-def test_locators():
-    driver = make_driver()
-    try:
-        driver.get(page_url("locators_test.html"))
+def test_locators(driver: PlaywrightWebDriver):
+    driver.get(page_url("locators_test.html"))
 
-        assert driver.find_element(By.ID, "id1").text == "Id One"
-        assert driver.find_element(By.CLASS_NAME, "class1").text == "Class One"
-        assert driver.find_element(By.TAG_NAME, "span").text == "Span One"
-        assert driver.find_element(By.CSS_SELECTOR, ".class1").text == "Class One"
-        assert driver.find_element(By.XPATH, "//div[@id='id1']").text == "Id One"
-        assert driver.find_element(By.LINK_TEXT, "Link Text") is not None
-        assert driver.find_element(By.PARTIAL_LINK_TEXT, "Link") is not None
-        assert driver.find_element(By.NAME, "name1").text == "Name One"
-    finally:
-        driver.quit()
+    assert driver.find_element(By.ID, "id1").text == "Id One"
+    assert driver.find_element(By.CLASS_NAME, "class1").text == "Class One"
+    assert driver.find_element(By.TAG_NAME, "span").text == "Span One"
+    assert driver.find_element(By.CSS_SELECTOR, ".class1").text == "Class One"
+    assert driver.find_element(By.XPATH, "//div[@id='id1']").text == "Id One"
+    assert driver.find_element(By.LINK_TEXT, "Link Text") is not None
+    assert driver.find_element(By.PARTIAL_LINK_TEXT, "Link") is not None
+    assert driver.find_element(By.NAME, "name1").text == "Name One"
 
 
-def test_tag_name():
-    driver = make_driver()
-    try:
-        driver.get(page_url("tag_name.html"))
-        element = driver.find_element(By.ID, "host")
-        assert element.tag_name.upper() == "DIV"
-    finally:
-        driver.quit()
+def test_tag_name(driver: PlaywrightWebDriver):
+    driver.get(page_url("tag_name.html"))
+    element = driver.find_element(By.ID, "host")
+    assert element.tag_name.upper() == "DIV"
 
 
-def test_shadow_dom():
-    driver = make_driver()
-    try:
-        driver.get(page_url("shadow_dom.html"))
-        # Playwright's >> css= pierces shadow boundaries; use the pierce: prefix
-        _ = driver.find_element(By.CSS_SELECTOR, "#host > span")
-        # The shadow DOM span is accessible via Playwright's auto-piercing locator
-        # Fall back to evaluating JS to confirm shadow content exists
-        text = driver.execute_script(
-            "return document.querySelector('#host').shadowRoot.querySelector('span').textContent"
-        )
-        assert text == "I'm in the shadow DOM"
-    finally:
-        driver.quit()
+def test_shadow_dom(driver: PlaywrightWebDriver):
+    driver.get(page_url("shadow_dom.html"))
+    # Playwright's >> css= pierces shadow boundaries; use the pierce: prefix
+    _ = driver.find_element(By.CSS_SELECTOR, "#host > span")
+    # The shadow DOM span is accessible via Playwright's auto-piercing locator
+    # Fall back to evaluating JS to confirm shadow content exists
+    text = driver.execute_script(
+        "return document.querySelector('#host').shadowRoot.querySelector('span').textContent"
+    )
+    assert text == "I'm in the shadow DOM"
 
 
-def test_nested_finds():
-    driver = make_driver()
-    try:
-        driver.get(page_url("nested_finds.html"))
-        host = driver.find_element(By.ID, "host")
-        inner1 = host.find_element(By.CLASS_NAME, "inner1")
-        inner2 = inner1.find_element(By.CLASS_NAME, "inner2")
-        inner3 = inner2.find_element(By.CLASS_NAME, "inner3")
-        assert "Most inner!" in inner3.text
-    finally:
-        driver.quit()
+def test_nested_finds(driver: PlaywrightWebDriver):
+    driver.get(page_url("nested_finds.html"))
+    host = driver.find_element(By.ID, "host")
+    inner1 = host.find_element(By.CLASS_NAME, "inner1")
+    inner2 = inner1.find_element(By.CLASS_NAME, "inner2")
+    inner3 = inner2.find_element(By.CLASS_NAME, "inner3")
+    assert "Most inner!" in inner3.text
 
 
-def test_click():
-    driver = make_driver()
-    try:
-        driver.get(page_url("click.html"))
-        host = driver.find_element(By.ID, "host")
-        assert host.text == "Not yet clicked"
-        driver.find_element(By.ID, "btn").click()
-        assert driver.find_element(By.ID, "host").text == "Clicked"
-    finally:
-        driver.quit()
+def test_click(driver: PlaywrightWebDriver):
+    driver.get(page_url("click.html"))
+    host = driver.find_element(By.ID, "host")
+    assert host.text == "Not yet clicked"
+    driver.find_element(By.ID, "btn").click()
+    assert driver.find_element(By.ID, "host").text == "Clicked"
 
 
-def test_alert():
-    driver = make_driver()
-    try:
-        driver.get(page_url("alert.html"))
-        # The dialog handler captures the text before auto-dismissing
-        alert = driver.switch_to.alert()
-        assert alert.text == "Hello! I am an alert box!!"
-    finally:
-        driver.quit()
+def test_alert(driver: PlaywrightWebDriver):
+    driver.get(page_url("alert.html"))
+    # The dialog handler captures the text before auto-dismissing
+    alert = driver.switch_to.alert()
+    assert alert.text == "Hello! I am an alert box!!"
 
 
-def test_cookie(http_server):
+def test_cookie(http_server, driver: PlaywrightWebDriver):
     # Cookies require a real HTTP origin — file:// URLs are blocked by Chromium.
     # http_server is a module-scoped fixture that serves html_pages/ over HTTP.
-    driver = make_driver()
-    try:
-        driver.get(f"{http_server}/tag_name.html")
-        jar = driver.manage().cookies
+    driver.get(f"{http_server}/tag_name.html")
+    jar = driver.manage().cookies
 
-        jar.add_cookie({"name": "test_cookie", "value": "hello"})
-        retrieved = jar.get_cookie("test_cookie")
-        assert retrieved is not None
-        assert retrieved["value"] == "hello"
+    jar.add_cookie({"name": "test_cookie", "value": "hello"})
+    retrieved = jar.get_cookie("test_cookie")
+    assert retrieved is not None
+    assert retrieved["value"] == "hello"
 
-        jar.delete_cookie_named("test_cookie")
-        assert jar.get_cookie("test_cookie") is None
-    finally:
-        driver.quit()
+    jar.delete_cookie_named("test_cookie")
+    assert jar.get_cookie("test_cookie") is None
 
 
-def test_form_submit():
-    driver = make_driver()
-    try:
-        driver.get(page_url("form_submit.html"))
-        inp = driver.find_element(By.ID, "input1")
-        inp.send_keys("Hello, world!")
-        driver.find_element(By.ID, "form1").submit()
-        assert driver.find_element(By.ID, "host").text == "Hello, world!"
-    finally:
-        driver.quit()
+def test_form_submit(driver: PlaywrightWebDriver):
+    driver.get(page_url("form_submit.html"))
+    inp = driver.find_element(By.ID, "input1")
+    inp.send_keys("Hello, world!")
+    driver.find_element(By.ID, "form1").submit()
+    assert driver.find_element(By.ID, "host").text == "Hello, world!"
 
 
-def test_iframe():
-    driver = make_driver()
-    try:
-        driver.get(page_url("iframe.html"))
+def test_iframe(driver: PlaywrightWebDriver):
+    driver.get(page_url("iframe.html"))
 
-        # Root page content is visible
-        root_span = driver.find_element(By.ID, "iframe-root-page1")
-        assert root_span.is_displayed
+    # Root page content is visible
+    root_span = driver.find_element(By.ID, "iframe-root-page1")
+    assert root_span.is_displayed
 
-        # Switch into the iframe
-        frame_el = driver.find_element(By.ID, "frame1")
-        driver.switch_to.frame(frame_el)
+    # Switch into the iframe
+    frame_el = driver.find_element(By.ID, "frame1")
+    driver.switch_to.frame(frame_el)
 
-        # Content inside the iframe
-        inner = driver.find_element(By.ID, "host")
-        assert inner.text == "Window1!"
+    # Content inside the iframe
+    inner = driver.find_element(By.ID, "host")
+    assert inner.text == "Window1!"
 
-        # Navigate back to parent
-        driver.switch_to.parent_frame()
-        assert driver.find_element(By.ID, "iframe-root-page1").is_displayed
-    finally:
-        driver.quit()
+    # Navigate back to parent
+    driver.switch_to.parent_frame()
+    assert driver.find_element(By.ID, "iframe-root-page1").is_displayed
 
 
-def test_popup():
-    driver = make_driver()
-    try:
-        driver.get(page_url("popup.html"))
+def test_popup(driver: PlaywrightWebDriver):
+    driver.get(page_url("popup.html"))
 
-        # Wait briefly for the popup to register
-        driver.current_page.wait_for_timeout(500)
+    # Wait briefly for the popup to register
+    driver.current_page.wait_for_timeout(500)
 
-        handles = driver.window_handles
-        assert len(handles) == 2
+    handles = driver.window_handles
+    assert len(handles) == 2
 
-        original_handle = driver.current_window_handle
-        popup_handle = next(h for h in handles if h != original_handle)
+    original_handle = driver.current_window_handle
+    popup_handle = next(h for h in handles if h != original_handle)
 
-        driver.switch_to.window(popup_handle)
-        assert driver.find_element(By.ID, "host").text == "Window1!"
+    driver.switch_to.window(popup_handle)
+    assert driver.find_element(By.ID, "host").text == "Window1!"
 
-        driver.switch_to.window(original_handle)
-    finally:
-        driver.quit()
+    driver.switch_to.window(original_handle)
 
 
-def test_mix_and_match_apis():
+def test_mix_and_match_apis(driver: PlaywrightWebDriver):
     """Demonstrates mixing the Selenium-style API with direct Playwright calls."""
-    driver = make_driver()
+    driver.get(page_url("click.html"))
+    # Selenium-style find + click
+    driver.find_element(By.ID, "btn").click()
+    assert driver.find_element(By.ID, "host").text == "Clicked"
+
+    # Direct Playwright page access
+    driver.current_page.reload()
+    assert driver.find_element(By.ID, "host").text == "Not yet clicked"
+
+
+def test_file_input(driver: PlaywrightWebDriver):
+    driver.get(page_url("file_input.html"))
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".txt") as f:
+        f.write(b"hello")
+        tmp_path = f.name
     try:
-        driver.get(page_url("click.html"))
-        # Selenium-style find + click
-        driver.find_element(By.ID, "btn").click()
-        assert driver.find_element(By.ID, "host").text == "Clicked"
-
-        # Direct Playwright page access
-        driver.current_page.reload()
-        assert driver.find_element(By.ID, "host").text == "Not yet clicked"
+        file_input = driver.find_element(By.ID, "file-input")
+        file_input.send_keys(tmp_path)
+        # Verify the file was attached
+        value = driver.execute_script("return document.getElementById('file-input').files[0].name")
+        assert value == Path(tmp_path).name
     finally:
-        driver.quit()
+        Path(tmp_path).unlink()
 
 
-def test_file_input():
-    driver = make_driver()
-    try:
-        driver.get(page_url("file_input.html"))
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".txt") as f:
-            f.write(b"hello")
-            tmp_path = f.name
-        try:
-            file_input = driver.find_element(By.ID, "file-input")
-            file_input.send_keys(tmp_path)
-            # Verify the file was attached
-            value = driver.execute_script(
-                "return document.getElementById('file-input').files[0].name"
-            )
-            assert value == Path(tmp_path).name
-        finally:
-            Path(tmp_path).unlink()
-    finally:
-        driver.quit()
-
-
-def test_switch_tabs():
+def test_switch_tabs(driver: PlaywrightWebDriver):
     """Open a new tab, navigate it, and switch back (Selenium 4 NewWindow equivalent)."""
-    driver = make_driver()
-    try:
-        driver.get(page_url("tag_name.html"))
-        original_handle = driver.current_window_handle
+    driver.get(page_url("tag_name.html"))
+    original_handle = driver.current_window_handle
 
-        driver.switch_to.new_window("tab")
-        driver.get(page_url("windows/window2.html"))
-        assert driver.find_element(By.ID, "host").text == "Window2!"
+    driver.switch_to.new_window("tab")
+    driver.get(page_url("windows/window2.html"))
+    assert driver.find_element(By.ID, "host").text == "Window2!"
 
-        driver.switch_to.window(original_handle)
-        assert driver.find_element(By.ID, "host").text == "Host!"
-    finally:
-        driver.quit()
+    driver.switch_to.window(original_handle)
+    assert driver.find_element(By.ID, "host").text == "Host!"
 
 
-def test_switch_to_default_content():
+def test_switch_to_default_content(driver: PlaywrightWebDriver):
     """Open three windows and use default_content to return to the first."""
-    driver = make_driver()
-    try:
-        driver.get(page_url("windows/window1.html"))
-        _ = driver.current_window_handle
+    driver.get(page_url("windows/window1.html"))
+    _ = driver.current_window_handle
 
-        driver.switch_to.new_window("tab")
-        driver.get(page_url("windows/window2.html"))
+    driver.switch_to.new_window("tab")
+    driver.get(page_url("windows/window2.html"))
 
-        driver.switch_to.new_window("tab")
-        driver.get(page_url("windows/window3.html"))
-        assert driver.find_element(By.ID, "host").text == "Window3!"
+    driver.switch_to.new_window("tab")
+    driver.get(page_url("windows/window3.html"))
+    assert driver.find_element(By.ID, "host").text == "Window3!"
 
-        driver.switch_to.default_content()
-        assert driver.find_element(By.ID, "host").text == "Window1!"
-    finally:
-        driver.quit()
+    driver.switch_to.default_content()
+    assert driver.find_element(By.ID, "host").text == "Window1!"
