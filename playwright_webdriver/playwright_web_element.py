@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Final
 
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 from .keys_mapper import split_into_chunks
@@ -46,13 +47,15 @@ class PlaywrightWebElement:
     # Element discovery
     # ------------------------------------------------------------------
 
-    def find_element(self, by: str, value: str) -> PlaywrightWebElement:
+    def find_element(self, by: By | str = By.ID, value: str | None = None) -> PlaywrightWebElement:
         loc_str = get_locator_string(by, value)
         return PlaywrightWebElement(
             self._locator.locator(loc_str).first, loc_str, parent=self.parent
         )
 
-    def find_elements(self, by: str, value: str) -> list[PlaywrightWebElement]:
+    def find_elements(
+        self, by: By | str = By.ID, value: str | None = None
+    ) -> list[PlaywrightWebElement]:
         loc_str = get_locator_string(by, value)
         locator = self._locator.locator(loc_str)
         return [PlaywrightWebElement(loc, loc_str, parent=self.parent) for loc in locator.all()]
