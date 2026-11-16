@@ -254,3 +254,11 @@ def test_switch_to_default_content(driver: PlaywrightWebDriver):
 
     driver.switch_to.default_content()
     assert driver.find_element(By.ID, "host").text == "Window1!"
+
+
+def test_get_attribute(driver: PlaywrightWebDriver):
+    driver.get(page_url("form_submit.html"))
+    element = driver.find_element(By.ID, "input1")
+    value = "asdf"
+    element.send_keys(value)
+    assert element.get_attribute("value") == value

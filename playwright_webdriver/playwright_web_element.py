@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Final
+import json
+from typing import TYPE_CHECKING, Final, cast
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -97,7 +98,17 @@ class PlaywrightWebElement:
     # ------------------------------------------------------------------
 
     def get_attribute(self, name: str) -> str | None:
-        return self._locator.get_attribute(name)
+        """
+        According to the documentation of `WebDriver.get_attribute`, this method actually tries to
+        get a property with that name first, then falls back to an attribute of the same name.
+
+        It also says that values like `"true"`/`"false"` are converted to `bool`, but as far as i
+        can tell that's a lie.
+        """
+        value = cast(str | None, self.locator.evaluate(f"element => element[{json.dumps(name)}]"))
+        if value is None:
+            return self._locator.get_attribute(name)
+        return value
 
     def get_property(self, name: str) -> str | None:
         return self.get_attribute(name)
