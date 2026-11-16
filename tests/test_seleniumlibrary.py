@@ -29,3 +29,11 @@ def test_find_element(selenium_library: SeleniumLibrary):
     sl.go_to(page_url("tag_name.html"))
     element_id = "host"
     assert sl.find_element(element_id).get_attribute("id") == element_id
+
+
+def test_get_element_attribute(selenium_library: SeleniumLibrary):
+    sl = BrowserManagementKeywords(selenium_library)
+    sl.go_to(page_url("tag_name.html"))
+    element_id = "host"
+    element = sl.find_element(element_id)
+    assert selenium_library.get_element_attribute(element, "id") == element_id

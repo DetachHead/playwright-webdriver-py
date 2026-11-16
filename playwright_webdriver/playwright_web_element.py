@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Final
 
+from selenium.webdriver.remote.webelement import WebElement
+
 from .keys_mapper import split_into_chunks
 from .locator_helpers import get_locator_string
 
@@ -11,6 +13,19 @@ if TYPE_CHECKING:
     from playwright_webdriver import PlaywrightWebDriver
 
 
+# register this class as a subclass of `WebElement`.
+#
+# this is a disgusting hack, but it's necessary to support robotframework's seleniumlibrary, which
+# does `isinstance(..., WebElement)` to determine whether anh object is a WebElement (even though
+# the completely empty and useless `BaseWebElement` exists seemingly for that purpose, nothing seems
+# to ever use it???).
+#
+# ideally there would be a `WebElement` ABC/Protocol or something that `PlaywrightWebElement` could
+# implement. alternatively we could just extend `WebElement` instead of using this wacky subclass
+# registration thing, but we do this to prevent anything from unintentionally calling the real
+# `WebElement` in case there's anything from that class we haven't implemented.
+# see https://codeberg.org/DetachHead/playwright-webdriver-py/issues/4
+@WebElement.register
 class PlaywrightWebElement:
     """
     Selenium WebElement-compatible wrapper around a Playwright ``Locator``.
