@@ -492,20 +492,6 @@
       "severity": "error"
     },
     {
-      "column": 5,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
-      "severity": "error"
-    },
-    {
-      "column": 5,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
-      "severity": "error"
-    },
-    {
       "column": 12,
       "path": "tests/test_playwright_web_driver.py",
       "name": "redundant-condition",
@@ -520,59 +506,10 @@
       "severity": "error"
     },
     {
-      "column": 5,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
-      "severity": "error"
-    },
-    {
-      "column": 5,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `Response | None` and is not used; assign to `_` if this is intentional",
-      "severity": "error"
-    },
-    {
       "column": 9,
       "path": "tests/test_playwright_web_driver.py",
       "name": "unused-call-result",
       "concise_description": "Result of call expression is of type `int` and is not used; assign to `_` if this is intentional",
-      "severity": "error"
-    },
-    {
-      "column": 5,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
-      "severity": "error"
-    },
-    {
-      "column": 5,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
-      "severity": "error"
-    },
-    {
-      "column": 5,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
-      "severity": "error"
-    },
-    {
-      "column": 5,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
-      "severity": "error"
-    },
-    {
-      "column": 5,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
       "severity": "error"
     }
   ]

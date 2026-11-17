@@ -135,7 +135,7 @@ def test_click(driver: PlaywrightWebDriver):
 def test_alert(driver: PlaywrightWebDriver):
     driver.get(page_url("alert.html"))
     # The dialog handler captures the text before auto-dismissing
-    alert = driver.switch_to.alert()
+    alert = driver.switch_to.alert
     assert alert.text == "Hello! I am an alert box!!"
 
 

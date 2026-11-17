@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from typing import TYPE_CHECKING, Final, cast
+from typing import TYPE_CHECKING, Any, cast, override
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -15,20 +15,21 @@ if TYPE_CHECKING:
     from playwright_webdriver import PlaywrightWebDriver
 
 
+# https://codeberg.org/DetachHead/playwright-webdriver-py/issues/4
+# see comment in playwright_web_driver.py where we do the same thing
+if TYPE_CHECKING:
+    _BaseWebElement = WebElement
+else:
+    _BaseWebElement = object
+
+
 # register this class as a subclass of `WebElement`.
-#
 # this is a disgusting hack, but it's necessary to support robotframework's seleniumlibrary, which
-# does `isinstance(..., WebElement)` to determine whether anh object is a WebElement (even though
+# does `isinstance(..., WebElement)` to determine whether an object is a WebElement (even though
 # the completely empty and useless `BaseWebElement` exists seemingly for that purpose, nothing seems
-# to ever use it???).
-#
-# ideally there would be a `WebElement` ABC/Protocol or something that `PlaywrightWebElement` could
-# implement. alternatively we could just extend `WebElement` instead of using this wacky subclass
-# registration thing, but we do this to prevent anything from unintentionally calling the real
-# `WebElement` in case there's anything from that class we haven't implemented.
-# see https://codeberg.org/DetachHead/playwright-webdriver-py/issues/4
+# to ever use it???). see issue linked above
 @WebElement.register
-class PlaywrightWebElement:
+class PlaywrightWebElement(_BaseWebElement):
     """
     Selenium WebElement-compatible wrapper around a Playwright ``Locator``.
 
@@ -37,24 +38,31 @@ class PlaywrightWebElement:
     required in the original C# version.
     """
 
-    def __init__(
+    def __init__(  # pyrefly: ignore[missing-super-call] not actually extending WebElement, see comments above
         self, locator: Locator, locator_string: str, *, parent: PlaywrightWebDriver
     ) -> None:
-        self.parent: Final[PlaywrightWebDriver] = parent
+        self.__parent = parent
         self._locator = locator
         self._locator_string = locator_string
+
+    @property
+    @override
+    def parent(self) -> PlaywrightWebDriver:
+        return self.__parent
 
     # ------------------------------------------------------------------
     # Element discovery
     # ------------------------------------------------------------------
 
+    @override
     def find_element(self, by: By | str = By.ID, value: str | None = None) -> PlaywrightWebElement:
         loc_str = get_locator_string(by, value)
         return PlaywrightWebElement(
             self._locator.locator(loc_str).first, loc_str, parent=self.parent
         )
 
-    def find_elements(
+    @override
+    def find_elements(  # pyrefly: ignore[bad-override] variance moment
         self, by: By | str = By.ID, value: str | None = None
     ) -> list[PlaywrightWebElement]:
         loc_str = get_locator_string(by, value)
@@ -65,9 +73,11 @@ class PlaywrightWebElement:
     # Interactions
     # ------------------------------------------------------------------
 
+    @override
     def click(self) -> None:
         self._locator.click()
 
+    @override
     def send_keys(self, *value: str) -> None:
         text = "".join(str(v) for v in value)
         if self.get_attribute("type") == "file":
@@ -87,9 +97,11 @@ class PlaywrightWebElement:
             else:
                 self._locator.press(val)
 
+    @override
     def clear(self) -> None:
         self._locator.clear()
 
+    @override
     def submit(self) -> None:
         self._locator.dispatch_event("submit")
 
@@ -97,6 +109,10 @@ class PlaywrightWebElement:
     # Attribute / property access
     # ------------------------------------------------------------------
 
+    def __get_property(self, name: str) -> str | None:
+        return cast(str | None, self.locator.evaluate(f"element => element[{json.dumps(name)}]"))
+
+    @override
     def get_attribute(self, name: str) -> str | None:
         """
         According to the documentation of `WebDriver.get_attribute`, this method actually tries to
@@ -105,17 +121,22 @@ class PlaywrightWebElement:
         It also says that values like `"true"`/`"false"` are converted to `bool`, but as far as i
         can tell that's a lie.
         """
-        value = cast(str | None, self.locator.evaluate(f"element => element[{json.dumps(name)}]"))
+        value = self.__get_property(name)
         if value is None:
             return self._locator.get_attribute(name)
         return value
 
-    def get_property(self, name: str) -> str | None:
-        return self.get_attribute(name)
+    @override
+    # bad-override: types on base method are wrong, it can return None
+    # explicit-any: dict is untyped in the base method
+    def get_property(self, name: str) -> str | bool | PlaywrightWebElement | dict[Any, Any] | None:  # pyrefly: ignore[bad-override, explicit-any]
+        return self.__get_property(name)
 
-    def get_dom_attribute(self, name: str) -> str | None:
-        return self.get_attribute(name)
+    @override
+    def get_dom_attribute(self, name: str) -> str | None:  # pyrefly: ignore[bad-override] types in base method are wrong, it can return None
+        return self._locator.get_attribute(name)
 
+    # TODO: what is this? doesnt seem to exist in WebElement
     def get_dom_property(self, name: str) -> str | None:
         return self.get_attribute(name)
 
@@ -124,6 +145,7 @@ class PlaywrightWebElement:
             f"(element) => window.getComputedStyle(element).getPropertyValue('{property_name}')"
         )
 
+    @override
     def value_of_css_property(self, property_name: str) -> str:
         return self.get_css_value(property_name)
 
@@ -140,29 +162,36 @@ class PlaywrightWebElement:
     # ------------------------------------------------------------------
 
     @property
+    @override
     def tag_name(self) -> str:
         return self._locator.evaluate("(element) => element.tagName")
 
     @property
+    @override
     def text(self) -> str:
         return self._locator.text_content() or ""
 
+    @override
     def is_enabled(self) -> bool:
         return self._locator.is_enabled()
 
     # Selenium uses ``is_selected`` for checkboxes/radio
+    @override
     def is_selected(self) -> bool:
         return self._locator.is_checked()
 
+    @override
     def is_displayed(self) -> bool:
         return self._locator.is_visible()
 
     @property
+    @override
     def location(self) -> dict[str, int]:
         bb = self._locator.bounding_box() or {"x": 0, "y": 0}
         return {"x": int(bb["x"]), "y": int(bb["y"])}
 
     @property
+    @override
     def size(self) -> dict[str, int]:
         bb = self._locator.bounding_box() or {"width": 0, "height": 0}
         return {"width": int(bb["width"]), "height": int(bb["height"])}

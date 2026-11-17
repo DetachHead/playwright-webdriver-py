@@ -18,9 +18,7 @@ def selenium_library(driver: PlaywrightWebDriver, monkeypatch: MonkeyPatch):
     # to be 100% certain we're actually testing PlaywrightWebDriver
     monkeypatch.setenv("SE_AVOID_BROWSER_DOWNLOAD", "true")
     result = SeleniumLibrary()
-    # currently there's no way to tell type checkers that PlaywrightWebDriver is supposed to be
-    # structurally compatible with WebDriver. see https://codeberg.org/DetachHead/playwright-webdriver-py/issues/4
-    result.register_driver(driver, "playwright")  # pyrefly: ignore[bad-argument-type]
+    result.register_driver(driver, "playwright")
     return result
 
 

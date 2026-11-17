@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.relative_locator import RelativeBy
 
 from .playwright_by import PlaywrightBy
 
@@ -18,7 +19,9 @@ _MECHANISM_MAP: dict[str, str | None] = {
 }
 
 
-def get_locator_string(by: By | tuple[str, str] | str, value: str | None = None) -> str:
+def get_locator_string(
+    by: By | RelativeBy | tuple[str, str] | str, value: str | None = None
+) -> str:
     """
     Convert a Selenium ``By`` locator into a Playwright selector string.
 
@@ -30,6 +33,11 @@ def get_locator_string(by: By | tuple[str, str] | str, value: str | None = None)
 
     Returns a string suitable for ``page.locator(…)`` or ``locator.locator(…)``.
     """
+    if isinstance(by, RelativeBy):
+        # TODO: what is RelativeBy
+        raise NotImplementedError(
+            f"RelativeBy is not yet supported in playwright-webdriver-py ({value=})"
+        )
     # PlaywrightBy carries a raw Playwright locator string — use it directly.
     if isinstance(by, PlaywrightBy):
         return by.playwright_locator

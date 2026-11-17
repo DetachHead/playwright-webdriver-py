@@ -3,7 +3,7 @@ from __future__ import annotations
 import contextlib
 import re
 import uuid
-from typing import Any, Self
+from typing import TYPE_CHECKING, Any, Self, override
 
 from playwright.sync_api import (
     Browser,
@@ -14,6 +14,7 @@ from playwright.sync_api import (
     sync_playwright,
 )
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 from .locator_helpers import get_locator_string
 from .playwright_browser_type import PlaywrightBrowserType
@@ -22,10 +23,27 @@ from .playwright_options import PlaywrightOptions
 from .playwright_target_locator import PlaywrightTargetLocator
 from .playwright_web_element import PlaywrightWebElement
 
+if TYPE_CHECKING:
+    from types import TracebackType
+
+    from selenium.webdriver.remote.webdriver import WebDriver
+    from selenium.webdriver.support.relative_locator import RelativeBy
+
+
 _RE_ARGUMENTS = re.compile(r"arguments\[(?P<number>[0-9]+)\]")
 
 
-class PlaywrightWebDriver:
+# we pretend to extend WebDriver to trick type checkers into thinking PlaywrightWebDriver is a
+# subtype, since there's no ABC/Protocol for WebDriver we can use. we avoid doing this at runtime
+# to prevent anything from unintentionally calling the real `WebDriver` in case there's anything
+# from that class we haven't implemented. see https://codeberg.org/DetachHead/playwright-webdriver-py/issues/4
+if TYPE_CHECKING:
+    _BaseWebDriver = WebDriver
+else:
+    _BaseWebDriver = object
+
+
+class PlaywrightWebDriver(_BaseWebDriver):
     """
     Selenium WebDriver-compatible driver backed by Playwright's synchronous API.
 
@@ -47,11 +65,11 @@ class PlaywrightWebDriver:
             driver.get("https://example.com")
     """
 
-    def __init__(
+    def __init__(  # pyrefly: ignore[missing-super-call] not actually extending WebDriver, see comment above
         self, playwright: Playwright, browser: Browser, context: BrowserContext, current_page: Page
     ) -> None:
         self._playwright = playwright
-        self._browser = browser
+        self._playwright_browser = browser
         self._context = context
         self._original_page = current_page
 
@@ -105,10 +123,17 @@ class PlaywrightWebDriver:
     # Context manager support
     # ------------------------------------------------------------------
 
+    @override
     def __enter__(self) -> Self:
         return self
 
-    def __exit__(self, *_: object) -> None:
+    @override
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc: BaseException | None,
+        traceback: TracebackType | None,
+    ) -> None:
         self.quit()
 
     # ------------------------------------------------------------------
@@ -147,19 +172,22 @@ class PlaywrightWebDriver:
         self._register_alert_handler(page)
         return self
 
-    def _set_frame(self, frame_locator: Any) -> PlaywrightWebDriver:
+    def _set_frame(self, frame_locator: Any) -> None:
         self._current_frame_locators.append(frame_locator)
-        return self
 
     # ------------------------------------------------------------------
     # Core WebDriver interface
     # ------------------------------------------------------------------
 
+    @override
     def get(self, url: str) -> None:
         """Navigate to ``url`` (Selenium convention: ``driver.get(url)``)."""
         self._current_page.goto(url)
 
-    def find_element(self, by: str, value: str) -> PlaywrightWebElement:
+    @override
+    def find_element(
+        self, by: str | By | RelativeBy = By.ID, value: str | None = None
+    ) -> PlaywrightWebElement:
         loc_str = get_locator_string(by, value)
 
         if self._current_frame_locators:
@@ -172,7 +200,10 @@ class PlaywrightWebDriver:
 
         return PlaywrightWebElement(locator, loc_str, parent=self)
 
-    def find_elements(self, by: str, value: str) -> list[PlaywrightWebElement]:
+    @override
+    def find_elements(  # pyrefly: ignore[bad-override] variance moment
+        self, by: By | RelativeBy | str = By.ID, value: str | None = None
+    ) -> list[PlaywrightWebElement]:
         loc_str = get_locator_string(by, value)
 
         if self._current_frame_locators:
@@ -182,6 +213,7 @@ class PlaywrightWebDriver:
 
         return [PlaywrightWebElement(loc, loc_str, parent=self) for loc in locator.all()]
 
+    @override
     def close(self) -> None:
         """Close the current window/tab."""
         p2k = self._page_to_key()
@@ -196,10 +228,12 @@ class PlaywrightWebDriver:
             last_handle = self._window_handles_in_order[-1]
             self._set_current_page(self._key_to_page[last_handle])
 
+    @override
     def quit(self) -> None:
         """Close the browser and release all resources."""
         self._quit_resources()
 
+    @override
     def maximize_window(self) -> None:
         """Maximize the browser viewport (mirrors driver.maximize_window() in Selenium)."""
         self._current_page.set_viewport_size({"width": 1920, "height": 1080})
@@ -213,7 +247,7 @@ class PlaywrightWebDriver:
         with contextlib.suppress(Exception):
             self._context.close()
         with contextlib.suppress(Exception):
-            self._browser.close()
+            self._playwright_browser.close()
         with contextlib.suppress(Exception):
             self._playwright.stop()
 
@@ -228,6 +262,7 @@ class PlaywrightWebDriver:
         return PlaywrightNavigation(self)
 
     @property
+    @override
     def switch_to(self) -> PlaywrightTargetLocator:
         return PlaywrightTargetLocator(self)
 
@@ -236,22 +271,27 @@ class PlaywrightWebDriver:
     # ------------------------------------------------------------------
 
     @property
+    @override
     def current_url(self) -> str:
         return self._current_page.url
 
     @property
+    @override
     def title(self) -> str:
         return self._current_page.title()
 
     @property
+    @override
     def page_source(self) -> str:
         return self._current_page.content()
 
     @property
+    @override
     def current_window_handle(self) -> str:
         return self._page_to_key()[self._current_page]
 
     @property
+    @override
     def window_handles(self) -> list[str]:
         return list(self._key_to_page.keys())
 
@@ -269,12 +309,14 @@ class PlaywrightWebDriver:
     # JavaScript execution
     # ------------------------------------------------------------------
 
+    @override
     def execute_script(self, script: str, *args: Any) -> Any:
         script, args = self._convert_script(script, list(args))
         if self._current_frame_locators:
             return self._current_frame_locators[-1].owner.evaluate(script, args)
         return self._current_page.evaluate(script, args)
 
+    @override
     def execute_async_script(self, script: str, *args: Any) -> Any:
         return self.execute_script(script, *args)
 
