@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: ./pw uv sync
-      - run: ./pw install-browsers
+      - run: ./pw uv run playwright install --with-deps chromium-headless-shell
       - run: ./pw test
   static_checks:
     runs-on: ubuntu-latest
