@@ -12,6 +12,7 @@ from .locator_helpers import get_locator_string
 
 if TYPE_CHECKING:
     from playwright.sync_api import Locator
+    from selenium.webdriver.support.relative_locator import RelativeBy
 
     from playwright_webdriver import PlaywrightWebDriver
 
@@ -63,7 +64,9 @@ class PlaywrightWebElement(_BaseWebElement):
     # ------------------------------------------------------------------
 
     @override
-    def find_element(self, by: By | str = By.ID, value: str | None = None) -> PlaywrightWebElement:
+    def find_element(
+        self, by: By | str | RelativeBy = By.ID, value: str | None = None
+    ) -> PlaywrightWebElement:
         loc_str = get_locator_string(by, value)
         locator = self._locator.locator(loc_str)
         if locator.count() == 0:
@@ -74,7 +77,7 @@ class PlaywrightWebElement(_BaseWebElement):
 
     @override
     def find_elements(  # pyrefly: ignore[bad-override] variance moment
-        self, by: By | str = By.ID, value: str | None = None
+        self, by: By | str | RelativeBy = By.ID, value: str | None = None
     ) -> list[PlaywrightWebElement]:
         loc_str = get_locator_string(by, value)
         locator = self._locator.locator(loc_str)
