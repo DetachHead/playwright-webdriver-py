@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from typing import TYPE_CHECKING, Any, cast, override
+from typing import TYPE_CHECKING, Any, Final, cast, override
 
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
@@ -47,6 +47,9 @@ class PlaywrightWebElement(_BaseWebElement):
         self._locator = locator
         self._locator_string = locator_string
 
+        self.__id: Final = str(id(self))
+        parent._elements[self] = self.id
+
     @property
     @override
     def parent(self) -> PlaywrightWebDriver:
@@ -57,7 +60,7 @@ class PlaywrightWebElement(_BaseWebElement):
     @property
     @override
     def id(self) -> str:
-        return str(id(self))
+        return self.__id
 
     # ------------------------------------------------------------------
     # Element discovery
