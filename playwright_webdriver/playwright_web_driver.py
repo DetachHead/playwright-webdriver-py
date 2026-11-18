@@ -3,7 +3,9 @@ from __future__ import annotations
 import contextlib
 import re
 import uuid
-from typing import TYPE_CHECKING, Any, Self, override
+from collections.abc import Generator
+from typing import TYPE_CHECKING, Any, Final, Never, Self, cast, override
+from weakref import WeakKeyDictionary
 
 from playwright.sync_api import (
     Browser,
@@ -15,6 +17,9 @@ from playwright.sync_api import (
 )
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+
+from playwright_webdriver._actions import ActionsParams
+from playwright_webdriver.keys_mapper import to_playwright_key
 
 from .locator_helpers import get_locator_string
 from .playwright_browser_type import PlaywrightBrowserType
@@ -93,9 +98,7 @@ class PlaywrightWebDriver(_BaseWebDriver):
         current_page.on("popup", self._on_popup)
         self._register_alert_handler(current_page)
 
-    # ------------------------------------------------------------------
-    # Factory helpers
-    # ------------------------------------------------------------------
+        self._elements: Final = WeakKeyDictionary[PlaywrightWebElement, str]()
 
     @classmethod
     def create(
@@ -119,10 +122,6 @@ class PlaywrightWebDriver(_BaseWebDriver):
 
         return cls(pw, browser, context, page)
 
-    # ------------------------------------------------------------------
-    # Context manager support
-    # ------------------------------------------------------------------
-
     @override
     def __enter__(self) -> Self:
         return self
@@ -135,10 +134,6 @@ class PlaywrightWebDriver(_BaseWebDriver):
         traceback: TracebackType | None,
     ) -> None:
         self.quit()
-
-    # ------------------------------------------------------------------
-    # Page / window management (internal)
-    # ------------------------------------------------------------------
 
     def _set_current_page(self, page: Page) -> None:
         self._current_page = page
@@ -174,10 +169,6 @@ class PlaywrightWebDriver(_BaseWebDriver):
 
     def _set_frame(self, frame_locator: Any) -> None:
         self._current_frame_locators.append(frame_locator)
-
-    # ------------------------------------------------------------------
-    # Core WebDriver interface
-    # ------------------------------------------------------------------
 
     @override
     def get(self, url: str) -> None:
@@ -251,10 +242,6 @@ class PlaywrightWebDriver(_BaseWebDriver):
         with contextlib.suppress(Exception):
             self._playwright.stop()
 
-    # ------------------------------------------------------------------
-    # Options / Navigation / SwitchTo
-    # ------------------------------------------------------------------
-
     def manage(self) -> PlaywrightOptions:
         return PlaywrightOptions(self)
 
@@ -265,10 +252,6 @@ class PlaywrightWebDriver(_BaseWebDriver):
     @override
     def switch_to(self) -> PlaywrightTargetLocator:
         return PlaywrightTargetLocator(self)
-
-    # ------------------------------------------------------------------
-    # Properties
-    # ------------------------------------------------------------------
 
     @property
     @override
@@ -305,10 +288,6 @@ class PlaywrightWebDriver(_BaseWebDriver):
     def url(self, value: str) -> None:
         self._current_page.goto(value)
 
-    # ------------------------------------------------------------------
-    # JavaScript execution
-    # ------------------------------------------------------------------
-
     @override
     def execute_script(self, script: str, *args: Any) -> Any:
         script, args = self._convert_script(script, list(args))
@@ -340,9 +319,63 @@ class PlaywrightWebDriver(_BaseWebDriver):
 
         return script, converted_args
 
-    # ------------------------------------------------------------------
-    # Expose internals for support classes
-    # ------------------------------------------------------------------
+    # TODO: this is pretty gross. currently ive just implemented the bare minimum to support
+    # seleniumlibrary's `send_keys`. should probably be extracted out into its own module
+    @override
+    def execute(
+        self,
+        driver_command: str | Generator[dict[str, object], Never, object],
+        params: dict[str, str] | None = None,
+    ) -> object:
+        if isinstance(driver_command, Generator):
+            # TODO: what is this
+            raise NotImplementedError(
+                "`PlaywrightWebDriver.execute` does not yet support bidi generator commands"
+            )
+        match driver_command:
+            case "actions":
+                actions_params = cast(ActionsParams, params)
+                for action in actions_params["actions"]:
+                    match action["type"]:
+                        case "pointer":
+                            sub_actions = action["actions"]
+                            for sub_action in sub_actions:
+                                match sub_action["type"]:
+                                    case "pointerMove":
+                                        element = sub_action["origin"]
+                                        if isinstance(element, str):
+                                            raise NotImplementedError("todo")
+                                        element = next(
+                                            e
+                                            for e in self._elements
+                                            if e.id
+                                            == element["element-6066-11e4-a52e-4f735466cecf"]
+                                        )
+                                        # TODO: do we need to take the x and y coordinates into
+                                        # account?
+                                        element.locator.hover()
+                                    case "pointerDown":
+                                        self.current_page.mouse.down()
+                                    case "pointerUp":
+                                        self.current_page.mouse.up()
+                        case "key":
+                            sub_actions = action["actions"]
+                            for sub_action in sub_actions:
+                                match sub_action["type"]:
+                                    case "pause":
+                                        # TODO: whats this? i assume its just wait for timeout
+                                        self.current_page.wait_for_timeout(sub_action["duration"])
+                                    case type:
+                                        sl_key = sub_action["value"]
+                                        pw_key = to_playwright_key(sl_key) or sl_key
+                                        if type == "keyDown":
+                                            self.current_page.keyboard.down(pw_key)
+                                        elif type == "keyUp":
+                                            self.current_page.keyboard.up(pw_key)
+            case _:
+                raise NotImplementedError(
+                    f"`PlaywrightWebDriver.execute` does not yet {driver_command=}"
+                )
 
     @property
     def current_page(self) -> Page:
