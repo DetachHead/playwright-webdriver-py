@@ -62,7 +62,7 @@ ruff_check = ["uv run ruff check", "uv run ruff format --check --diff"]
 ruff_fix = ["uv run ruff check --fix", "uv run ruff format"]
 dprint = "uv run dprint check"
 dprint_fix = "uv run dprint fmt"
-install-browsers = "uv run playwright install --with-deps chromium-headless-shell"
+install-browsers = "uv run playwright install --with-deps chromium"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
