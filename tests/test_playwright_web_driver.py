@@ -14,8 +14,10 @@ import threading
 from functools import partial
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
+from typing import override
 
 import pytest
+from playwright.sync_api import Playwright
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
@@ -50,11 +52,30 @@ def http_server():
 # ---------------------------------------------------------------------------
 
 
-def test_last_window_closed():
-    driver = PlaywrightWebDriver.create(launch_options={"headless": True})
+def test_last_window_closed(playwright: Playwright):
+    class MockPlaywright(Playwright):
+        """
+        the `playwright` fixture is global so we need to prevent it from being closed on
+        `driver.quit` otherwise it will break any subsequent tests that run in the same session
+        """
+
+        stop_called = False
+
+        @override
+        def stop(self):
+            self.stop_called = True
+
+    # this test creates its own playwright browser/context/etc because it needs to kill them before
+    # the end of the test
+    mock_playwright = MockPlaywright(playwright._impl_obj)
+    browser = playwright.chromium.launch(headless=True)
+    context = browser.new_context()
+    driver = PlaywrightWebDriver(mock_playwright, browser, context, context.new_page())
+
     driver.get(page_url("tag_name.html"))
     driver.quit()
     assert len(driver.key_to_page) == 0
+    assert mock_playwright.stop_called
 
 
 def test_script_with_return(driver: PlaywrightWebDriver):
