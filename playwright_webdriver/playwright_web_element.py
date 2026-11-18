@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from typing import TYPE_CHECKING, Any, cast, override
 
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -57,9 +58,12 @@ class PlaywrightWebElement(_BaseWebElement):
     @override
     def find_element(self, by: By | str = By.ID, value: str | None = None) -> PlaywrightWebElement:
         loc_str = get_locator_string(by, value)
-        return PlaywrightWebElement(
-            self._locator.locator(loc_str).first, loc_str, parent=self.parent
-        )
+        locator = self._locator.locator(loc_str)
+        if locator.count() == 0:
+            raise NoSuchElementException(
+                f"No element found ({by=}, {value!r}, parent={self.locator})"
+            )
+        return PlaywrightWebElement(locator.first, loc_str, parent=self.parent)
 
     @override
     def find_elements(  # pyrefly: ignore[bad-override] variance moment

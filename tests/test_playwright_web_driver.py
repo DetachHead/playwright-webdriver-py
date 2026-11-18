@@ -16,6 +16,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 
 import pytest
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from playwright_webdriver import PlaywrightWebDriver
@@ -262,3 +263,17 @@ def test_get_attribute(driver: PlaywrightWebDriver):
     value = "asdf"
     element.send_keys(value)
     assert element.get_attribute("value") == value
+
+
+class TestElementNotFound:
+    @staticmethod
+    def test_driver(driver: PlaywrightWebDriver):
+        with pytest.raises(NoSuchElementException):
+            _ = driver.find_element(By.ID, "asdfasdf")
+
+    @staticmethod
+    def test_element(driver: PlaywrightWebDriver):
+        driver.get(page_url("tag_name.html"))
+        element = driver.find_element(By.ID, "host")
+        with pytest.raises(NoSuchElementException):
+            _ = element.find_element(By.ID, "asdfasdf")
