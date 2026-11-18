@@ -51,6 +51,13 @@ class PlaywrightWebElement(_BaseWebElement):
     def parent(self) -> PlaywrightWebDriver:
         return self.__parent
 
+    # TODO: unlike the real WebDriver.id, this doesnt return the same id for different WebElements
+    # matching the same element. each newly created PlaywrightWebElement gets a different id
+    @property
+    @override
+    def id(self) -> str:
+        return str(id(self))
+
     # ------------------------------------------------------------------
     # Element discovery
     # ------------------------------------------------------------------
