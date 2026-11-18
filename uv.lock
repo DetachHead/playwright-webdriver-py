@@ -3,15 +3,6 @@ revision = 5
 requires-python = ">=3.12"
 
 [[package]]
-name = "ansi2html"
-version = "1.9.5"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/c2/49/682b08f7d8247d18aaafaedaf50609de6d91d5ab378c912b5508392578a8/ansi2html-1.9.5.tar.gz", hash = "sha256:ae17e92f1d6cac0e67d367e07fb0ba8a23dac8f193fc5d7a8c8a50fe5ddd95a4", size = 45225, upload-time = "2026-09-06T12:43:46.36Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c2/d4/104cba52b1aa94d1c60ae342c264d4308af59d3d8832b4975802e9fe8978/ansi2html-1.9.5-py3-none-any.whl", hash = "sha256:fff3d25b149951474a688c7e22240f93e69ac5aa023c44ab5dce806befcba281", size = 17877, upload-time = "2026-09-06T12:43:44.78Z" },
-]
-
-[[package]]
 name = "attrs"
 version = "26.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -608,7 +599,6 @@ dev = [
     { name = "pyrefly" },
     { name = "pytest" },
     { name = "pytest-playwright" },
-    { name = "pytest-robotframework" },
     { name = "robotframework-seleniumlibrary" },
     { name = "ruff" },
     { name = "rumdl" },
@@ -628,7 +618,6 @@ dev = [
     { name = "pyrefly", specifier = ">=1.4.1" },
     { name = "pytest", specifier = ">=8.0.0" },
     { name = "pytest-playwright", specifier = ">=0.10.0" },
-    { name = "pytest-robotframework", specifier = ">=4.6.3" },
     { name = "robotframework-seleniumlibrary", specifier = ">=6.9.0" },
     { name = "ruff", specifier = ">=0.17.5" },
     { name = "rumdl", specifier = ">=0.3.4" },
@@ -727,21 +716,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/91/de/1c45f90a545771201ac11aead321ced92b66190da56f2138ee1ee78cee8a/pytest_playwright-0.10.0.tar.gz", hash = "sha256:47baf574dfb120bb53675d05c9784f8bf94e04c6dd7477dc56159ce732191952", size = 22634, upload-time = "2026-10-08T22:38:46.758Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/09/15/ab14dfdfd6756389e0a5467417863cf6fffa18ecfba0a68bfdc15dc5895a/pytest_playwright-0.10.0-py3-none-any.whl", hash = "sha256:8314d1af726e2c15531635902ece3ee47ed83f5a75c937a7eda8686d3dae6c0d", size = 22485, upload-time = "2026-10-08T22:38:49.089Z" },
-]
-
-[[package]]
-name = "pytest-robotframework"
-version = "4.6.3"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "ansi2html" },
-    { name = "pluggy" },
-    { name = "pytest" },
-    { name = "robotframework" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/07/cb/d7224e4ab35088282a382a7ab166dcbceacf66146401a7107e07dcc349b6/pytest_robotframework-4.6.3.tar.gz", hash = "sha256:e4c6fde4ae332882c81bfe3c6adfbae79caac0b7a9c8337151ab3308921618dc", size = 35863, upload-time = "2026-07-14T12:17:53.112Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c2/65/631bc34cf5fc3554b63543263f505d34b0380f6d691db76008e5ca4e11f1/pytest_robotframework-4.6.3-py3-none-any.whl", hash = "sha256:7b0ab5a4e6955d6b5ff332794b07e6279f7ef1f4c148696c2d6954ea84771ef9", size = 41032, upload-time = "2026-07-14T12:17:52.144Z" },
 ]
 
 [[package]]
