@@ -15,7 +15,7 @@ from playwright.sync_api import (
     Playwright,
     sync_playwright,
 )
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 
 from playwright_webdriver._actions import ActionsParams
@@ -186,10 +186,7 @@ class PlaywrightWebDriver(_BaseWebDriver):
         else:
             locator = self._current_page.locator(loc_str).first
 
-        if locator.count() == 0:
-            raise NoSuchElementException(f"No element found for ({by!r}, {value!r})")
-
-        return PlaywrightWebElement(locator, loc_str, parent=self)
+        return PlaywrightWebElement(locator, loc_str, parent=self, resolve=True)
 
     @override
     def find_elements(  # pyrefly: ignore[bad-override] variance moment
@@ -202,7 +199,9 @@ class PlaywrightWebDriver(_BaseWebDriver):
         else:
             locator = self._current_page.locator(loc_str)
 
-        return [PlaywrightWebElement(loc, loc_str, parent=self) for loc in locator.all()]
+        return [
+            PlaywrightWebElement(loc, loc_str, parent=self, resolve=False) for loc in locator.all()
+        ]
 
     @override
     def close(self) -> None:
@@ -305,6 +304,8 @@ class PlaywrightWebDriver(_BaseWebDriver):
         converted_args: list[Any] = []
         for arg in args:
             if isinstance(arg, PlaywrightWebElement):
+                if not arg.locator.count():
+                    raise StaleElementReferenceException(f"{arg}")
                 converted_args.append(arg.locator.element_handle())
             else:
                 converted_args.append(arg)
