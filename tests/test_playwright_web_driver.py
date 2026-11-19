@@ -78,32 +78,39 @@ def test_last_window_closed(playwright: Playwright):
     assert mock_playwright.stop_called
 
 
-def test_script_with_return(driver: PlaywrightWebDriver):
-    driver.get(page_url("locators_test.html"))
-    result = driver.execute_script("return document.querySelector('#id1').textContent")
-    assert result == "Id One"
+class TestExecuteScript:
+    @staticmethod
+    def test_script_with_return(driver: PlaywrightWebDriver):
+        driver.get(page_url("locators_test.html"))
+        result = driver.execute_script("return document.querySelector('#id1').textContent")
+        assert result == "Id One"
 
+    @staticmethod
+    def test_script_without_return(driver: PlaywrightWebDriver):
+        driver.get(page_url("locators_test.html"))
+        result = driver.execute_script("document.querySelector('#id1').textContent")
+        # we mimic selenium's behavior, so only return the value if there's a return statement
+        assert result is None
 
-def test_script_without_return(driver: PlaywrightWebDriver):
-    driver.get(page_url("locators_test.html"))
-    result = driver.execute_script("document.querySelector('#id1').textContent")
-    # Playwright returns the evaluated expression value
-    assert result == "Id One"
+    @staticmethod
+    def test_script_with_selenium_style_arguments(driver: PlaywrightWebDriver):
+        driver.get(page_url("locators_test.html"))
+        result = driver.execute_script(
+            "return `You passed in ${arguments[0]} and ${arguments[1]}`", "Foo", "Bar"
+        )
+        assert result == "You passed in Foo and Bar"
 
+    @staticmethod
+    def test_script_with_element_argument(driver: PlaywrightWebDriver):
+        driver.get(page_url("script_element_scroll.html"))
+        element = driver.find_element(By.ID, "id500")
+        # Should not raise — scrolls the element into view
+        driver.execute_script("arguments[0].scrollIntoView(true)", element)
 
-def test_script_with_selenium_style_arguments(driver: PlaywrightWebDriver):
-    driver.get(page_url("locators_test.html"))
-    result = driver.execute_script(
-        "return `You passed in ${arguments[0]} and ${arguments[1]}`", "Foo", "Bar"
-    )
-    assert result == "You passed in Foo and Bar"
-
-
-def test_script_with_element_argument(driver: PlaywrightWebDriver):
-    driver.get(page_url("script_element_scroll.html"))
-    element = driver.find_element(By.ID, "id500")
-    # Should not raise — scrolls the element into view
-    driver.execute_script("arguments[0].scrollIntoView(true)", element)
+    @staticmethod
+    def test_multiple_statements(driver: PlaywrightWebDriver):
+        driver.get(page_url("locators_test.html"))
+        assert driver.execute_script("1;return 2") == 2
 
 
 def test_locators(driver: PlaywrightWebDriver):
