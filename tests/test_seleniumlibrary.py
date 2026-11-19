@@ -1,13 +1,17 @@
 from __future__ import annotations
 
-from typing import cast
+from typing import TYPE_CHECKING
 
 from pytest import MonkeyPatch, fixture
 from SeleniumLibrary import SeleniumLibrary
 from SeleniumLibrary.keywords.browsermanagement import BrowserManagementKeywords
 
-from playwright_webdriver import PlaywrightWebDriver
 from tests.conftest import page_url
+
+if TYPE_CHECKING:
+    from playwright.sync_api import BrowserContext, Page
+
+    from playwright_webdriver import PlaywrightWebDriver
 
 
 @fixture
@@ -35,7 +39,7 @@ def test_get_element_attribute(selenium_library: SeleniumLibrary):
     assert selenium_library.get_element_attribute(element, "id") == element_id
 
 
-def test_send_keys(selenium_library: SeleniumLibrary):
+def test_send_keys(selenium_library: SeleniumLibrary, context: BrowserContext, page: Page):
     sl = BrowserManagementKeywords(selenium_library)
     sl.go_to(page_url("form_submit.html"))
     element_id = "input1"
@@ -43,7 +47,6 @@ def test_send_keys(selenium_library: SeleniumLibrary):
     selenium_library.press_keys(element_id, value)
     selenium_library.press_keys(element_id, "CTRL+aCTRL+c")
 
-    driver = cast(PlaywrightWebDriver, selenium_library.driver)
-    driver.context.grant_permissions(["clipboard-read"])
-    clipboard_content = driver.current_page.evaluate("() => navigator.clipboard.readText()")
+    context.grant_permissions(["clipboard-read"])
+    clipboard_content = page.evaluate("() => navigator.clipboard.readText()")
     assert clipboard_content == value

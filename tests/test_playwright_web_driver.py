@@ -17,8 +17,8 @@ from pathlib import Path
 from typing import override
 
 import pytest
-from playwright.sync_api import Playwright
-from selenium.common import NoSuchElementException
+from playwright.sync_api import Page, Playwright
+from selenium.common import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 
 from playwright_webdriver import PlaywrightWebDriver
@@ -298,3 +298,11 @@ class TestElementNotFound:
         element = driver.find_element(By.ID, "host")
         with pytest.raises(NoSuchElementException):
             _ = element.find_element(By.ID, "asdfasdf")
+
+
+def test_stale_element(driver: PlaywrightWebDriver, page: Page):
+    driver.get(page_url("tag_name.html"))
+    element = driver.find_element(By.ID, "host")
+    page.set_content("")
+    with pytest.raises(StaleElementReferenceException):
+        element.click()
