@@ -310,8 +310,8 @@ class PlaywrightWebDriver(_BaseWebDriver):
             else:
                 converted_args.append(arg)
 
-        # Strip leading "return " — Playwright uses expression mode
-        script = script.removeprefix("return ")
+        # convert statement to an expression - Playwright uses expression mode
+        script = f"(() => {{{script}}})()"
 
         # Wrap scripts that reference ``arguments[N]`` so Playwright receives
         # them as a named parameter.
