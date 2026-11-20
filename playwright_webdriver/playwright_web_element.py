@@ -1,17 +1,21 @@
 from __future__ import annotations
 
 import json
+from datetime import timedelta
 from typing import TYPE_CHECKING, Any, Final, cast, override
 
+from playwright.sync_api import (
+    TimeoutError as PWTimeoutError,  # https://github.com/microsoft/playwright-python/issues/1495
+)
 from selenium.common import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.remote.webelement import WebElement, _load_js  # ruff: ignore[import-private-name]
 
 from .keys_mapper import split_into_chunks
 from .locator_helpers import get_locator_string
 
 if TYPE_CHECKING:
-    from playwright.sync_api import Locator
+    from playwright.sync_api import ElementHandle, Locator
     from selenium.webdriver.support.relative_locator import RelativeBy
 
     from playwright_webdriver import PlaywrightWebDriver
@@ -74,6 +78,19 @@ class PlaywrightWebElement(_BaseWebElement):
         if not self.locator.count():
             raise StaleElementReferenceException(f"Element reference is stale ({self.locator})")
         return self.locator
+
+    def _resolve_element_handle(self) -> ElementHandle:
+        if not self.locator.count():
+            raise StaleElementReferenceException(str(self))
+        # TODO: this try/except is unfortunately needed because it's possible for the
+        # element to disappear between the above check and when it tries to resolve the
+        # element handle. we still want it to either resolve or fail instantly but cant use
+        # a timeout thats too short in case the locator is complicated enough to take a
+        # while to resolve.
+        try:
+            return self.locator.element_handle(timeout=timedelta(seconds=5))
+        except PWTimeoutError as error:
+            raise StaleElementReferenceException(str(self)) from error
 
     @property
     @override
@@ -165,11 +182,19 @@ class PlaywrightWebElement(_BaseWebElement):
 
         It also says that values like `"true"`/`"false"` are converted to `bool`, but as far as i
         can tell that's a lie.
+
+        There are also a bunch of other wack edge cases that are of course completely undocumented.
+        for example if the "attribute" name is in a hardcoded list of boolean attributes, it tries
+        to get the attribute first before it tries to get the property...
         """
-        value = self.__get_property(name)
-        if value is None:
-            return self._resolved_locator.get_attribute(name)
-        return value
+        # this is disgusting, but it's the easiest way to accurately re-implement this convoluted
+        # abomination of a method
+        from selenium.webdriver.remote import webelement  # ruff: ignore[import-outside-top-level]
+
+        if webelement.getAttribute_js is None:
+            _load_js()
+        js = cast(str, webelement.getAttribute_js)  # pyrefly: ignore[invalid-cast]
+        return cast(str | None, self._resolve_element_handle().evaluate(js, name))
 
     @override
     # bad-override: types on base method are wrong, it can return None
