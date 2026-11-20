@@ -30,7 +30,7 @@
     "editor.formatOnSave": true
   },
   // why does vscode treat github actions yaml files as a separate language????
-  "[toml][json][jsonc][yaml][markdown][github-actions-workflow]": {
+  "[toml][json][jsonc][yaml][markdown][github-actions-workflow][html]": {
     "editor.defaultFormatter": "dprint.dprint"
   },
   "explorer.compactFolders": false,
