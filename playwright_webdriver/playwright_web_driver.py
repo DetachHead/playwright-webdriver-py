@@ -4,6 +4,7 @@ import contextlib
 import re
 import uuid
 from collections.abc import Generator
+from datetime import timedelta
 from typing import TYPE_CHECKING, Any, Final, Never, Self, cast, override
 from weakref import WeakKeyDictionary
 
@@ -13,6 +14,7 @@ from playwright.sync_api import (
     BrowserType,
     Page,
     Playwright,
+    TimeoutError as PWTimeoutError,  # https://github.com/microsoft/playwright-python/issues/1495
     sync_playwright,
 )
 from selenium.common import StaleElementReferenceException
@@ -305,8 +307,16 @@ class PlaywrightWebDriver(_BaseWebDriver):
         for arg in args:
             if isinstance(arg, PlaywrightWebElement):
                 if not arg.locator.count():
-                    raise StaleElementReferenceException(f"{arg}")
-                converted_args.append(arg.locator.element_handle())
+                    raise StaleElementReferenceException(str(arg))
+                # TODO: this try/except is unfortunately needed because it's possible for the
+                # element to disappear between the above check and when it tries to resolve the
+                # element handle. we still want it to either resolve or fail instantly but cant use
+                # a timeout thats too short in case the locator is complicated enough to take a
+                # while to resolve.
+                try:
+                    converted_args.append(arg.locator.element_handle(timeout=timedelta(seconds=5)))
+                except PWTimeoutError as error:
+                    raise StaleElementReferenceException(str(arg)) from error
             else:
                 converted_args.append(arg)
 
