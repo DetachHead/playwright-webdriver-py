@@ -105,7 +105,7 @@ class TestExecuteScript:
         driver.get(page_url("script_element_scroll.html"))
         element = driver.find_element(By.ID, "id500")
         # Should not raise — scrolls the element into view
-        driver.execute_script("arguments[0].scrollIntoView(true)", element)
+        _ = driver.execute_script("arguments[0].scrollIntoView(true)", element)
 
     @staticmethod
     def test_multiple_statements(driver: PlaywrightWebDriver):
@@ -285,12 +285,20 @@ def test_switch_to_default_content(driver: PlaywrightWebDriver):
     assert driver.find_element(By.ID, "host").text == "Window1!"
 
 
-def test_get_attribute(driver: PlaywrightWebDriver):
-    driver.get(page_url("form_submit.html"))
-    element = driver.find_element(By.ID, "input1")
-    value = "asdf"
-    element.send_keys(value)
-    assert element.get_attribute("value") == value
+class TestGetAttribute:
+    @staticmethod
+    def test_str(driver: PlaywrightWebDriver):
+        driver.get(page_url("form_submit.html"))
+        element = driver.find_element(By.ID, "input1")
+        value = "asdf"
+        element.send_keys(value)
+        assert element.get_attribute("value") == value
+
+    @staticmethod
+    def test_bool(driver: PlaywrightWebDriver):
+        driver.get(page_url("disabled_button.html"))
+        element = driver.find_element(By.TAG_NAME, "button")
+        assert element.get_attribute("disabled") == "true"
 
 
 class TestElementNotFound:

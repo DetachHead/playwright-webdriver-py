@@ -187,7 +187,7 @@
       "column": 21,
       "path": "playwright_webdriver/playwright_target_locator.py",
       "name": "implicit-any-parameter",
-      "concise_description": "`frame` is missing an annotation for parameter `reference`",
+      "concise_description": "`frame` is missing an annotation for parameter `frame_reference`",
       "severity": "error"
     },
     {
@@ -304,13 +304,6 @@
     },
     {
       "column": 50,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "explicit-any",
-      "concise_description": "Explicit `Any` is not allowed",
-      "severity": "error"
-    },
-    {
-      "column": 58,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "explicit-any",
       "concise_description": "Explicit `Any` is not allowed",
@@ -502,7 +495,7 @@
       "column": 5,
       "path": "tests/test_playwright_web_driver.py",
       "name": "unused-call-result",
-      "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
+      "concise_description": "Result of call expression is of type `Response | None` and is not used; assign to `_` if this is intentional",
       "severity": "error"
     },
     {

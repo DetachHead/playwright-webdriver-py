@@ -4,7 +4,6 @@ import contextlib
 import re
 import uuid
 from collections.abc import Generator
-from datetime import timedelta
 from typing import TYPE_CHECKING, Any, Final, Never, Self, cast, override
 from weakref import WeakKeyDictionary
 
@@ -14,10 +13,8 @@ from playwright.sync_api import (
     BrowserType,
     Page,
     Playwright,
-    TimeoutError as PWTimeoutError,  # https://github.com/microsoft/playwright-python/issues/1495
     sync_playwright,
 )
-from selenium.common import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 
 from playwright_webdriver._actions import ActionsParams
@@ -290,7 +287,7 @@ class PlaywrightWebDriver(_BaseWebDriver):
         self._current_page.goto(value)
 
     @override
-    def execute_script(self, script: str, *args: Any) -> Any:
+    def execute_script(self, script: str, *args: Any) -> object:
         script, args = self._convert_script(script, list(args))
         if self._current_frame_locators:
             return self._current_frame_locators[-1].owner.evaluate(script, args)
@@ -306,17 +303,7 @@ class PlaywrightWebDriver(_BaseWebDriver):
         converted_args: list[Any] = []
         for arg in args:
             if isinstance(arg, PlaywrightWebElement):
-                if not arg.locator.count():
-                    raise StaleElementReferenceException(str(arg))
-                # TODO: this try/except is unfortunately needed because it's possible for the
-                # element to disappear between the above check and when it tries to resolve the
-                # element handle. we still want it to either resolve or fail instantly but cant use
-                # a timeout thats too short in case the locator is complicated enough to take a
-                # while to resolve.
-                try:
-                    converted_args.append(arg.locator.element_handle(timeout=timedelta(seconds=5)))
-                except PWTimeoutError as error:
-                    raise StaleElementReferenceException(str(arg)) from error
+                converted_args.append(arg._resolve_element_handle())
             else:
                 converted_args.append(arg)
 
