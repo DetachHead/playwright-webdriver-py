@@ -27,7 +27,7 @@ class PlaywrightTargetLocator(_BaseSwitchTo):
 
     # pyrefly: ignore[missing-super-call]
     def __init__(self, driver: PlaywrightWebDriver) -> None:
-        self._driver: PlaywrightWebDriver = driver  # pyrefly: ignore[bad-override-mutable-attribute] messed up types in base class
+        self._driver: PlaywrightWebDriver = driver  # pyrefly: ignore[bad-override] messed up types in base class
 
     # ------------------------------------------------------------------
     # Frame switching
