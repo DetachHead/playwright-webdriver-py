@@ -37,6 +37,13 @@
       "severity": "error"
     },
     {
+      "column": 29,
+      "path": "playwright_webdriver/playwright_alert.py",
+      "name": "protected-access",
+      "concise_description": "Protected attribute `_last_alert_text` cannot be accessed outside of its defining class or a subclass",
+      "severity": "error"
+    },
+    {
       "column": 39,
       "path": "playwright_webdriver/playwright_cookie_jar.py",
       "name": "implicit-any-type-argument",
@@ -51,10 +58,45 @@
       "severity": "error"
     },
     {
+      "column": 48,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_to_playwright_cookie` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 70,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 40,
       "path": "playwright_webdriver/playwright_cookie_jar.py",
       "name": "implicit-any-type-argument",
       "concise_description": "Cannot determine the type parameter `_KT` for generic class `dict[_KT, _VT]`",
+      "severity": "error"
+    },
+    {
+      "column": 21,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 38,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get_cookies` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 55,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
       "severity": "error"
     },
     {
@@ -65,6 +107,62 @@
       "severity": "error"
     },
     {
+      "column": 16,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of `name` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 55,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 34,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 23,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of `all_cookies` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get_cookies` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 16,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 22,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `add_cookie` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 33,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 35,
       "path": "playwright_webdriver/playwright_cookie_jar.py",
       "name": "implicit-any-type-argument",
@@ -72,10 +170,24 @@
       "severity": "error"
     },
     {
+      "column": 22,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_from_playwright_cookie` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 46,
       "path": "playwright_webdriver/playwright_cookie_jar.py",
       "name": "bad-argument-type",
       "concise_description": "Argument `Cookie` is not assignable to parameter `cookie` with type `dict[Unknown, Unknown]` in function `PlaywrightCookieJar._from_playwright_cookie`",
+      "severity": "error"
+    },
+    {
+      "column": 46,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
       "severity": "error"
     },
     {
@@ -93,6 +205,27 @@
       "severity": "error"
     },
     {
+      "column": 18,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of `domain` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 25,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 17,
       "path": "playwright_webdriver/playwright_cookie_jar.py",
       "name": "implicit-any-type-argument",
@@ -100,10 +233,171 @@
       "severity": "error"
     },
     {
+      "column": 21,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 22,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 35,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 38,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 37,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 40,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 13,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 32,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 13,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 37,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 40,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 13,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 18,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of `expiry` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 25,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 13,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 39,
       "path": "playwright_webdriver/playwright_cookie_jar.py",
       "name": "unknown-argument-type",
       "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 21,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of `same_site` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 31,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 13,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
       "severity": "error"
     },
     {
@@ -135,10 +429,150 @@
       "severity": "error"
     },
     {
+      "column": 21,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 22,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 33,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 31,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 35,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 38,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 37,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 40,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 19,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of `expires` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 26,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 29,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 13,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 36,
       "path": "playwright_webdriver/playwright_cookie_jar.py",
       "name": "unknown-argument-type",
       "concise_description": "The type of this argument is unknown",
+      "severity": "error"
+    },
+    {
+      "column": 21,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of `same_site` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 31,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 13,
+      "path": "playwright_webdriver/playwright_cookie_jar.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
       "severity": "error"
     },
     {
@@ -191,10 +625,38 @@
       "severity": "error"
     },
     {
+      "column": 22,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "protected-access",
+      "concise_description": "Protected attribute `_set_frame` cannot be accessed outside of its defining class or a subclass",
+      "severity": "error"
+    },
+    {
+      "column": 25,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 29,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 29,
       "path": "playwright_webdriver/playwright_target_locator.py",
       "name": "unknown-variable-type",
       "concise_description": "The type of `frame_locator` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 42,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `current_frame_locators` is partially unknown; it contains an implicit `Any`",
       "severity": "error"
     },
     {
@@ -212,10 +674,80 @@
       "severity": "error"
     },
     {
+      "column": 26,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `owner` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 32,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `count` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 22,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "protected-access",
+      "concise_description": "Protected attribute `_set_frame` cannot be accessed outside of its defining class or a subclass",
+      "severity": "error"
+    },
+    {
+      "column": 33,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 22,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "protected-access",
+      "concise_description": "Protected attribute `_set_frame` cannot be accessed outside of its defining class or a subclass",
+      "severity": "error"
+    },
+    {
+      "column": 14,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of `fl` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 27,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 16,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `pop` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 19,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 9,
       "path": "playwright_webdriver/playwright_target_locator.py",
       "name": "unused-call-result",
       "concise_description": "Result of call expression is of type `PlaywrightWebDriver` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 22,
+      "path": "playwright_webdriver/playwright_target_locator.py",
+      "name": "protected-access",
+      "concise_description": "Protected attribute `_new_page` cannot be accessed outside of its defining class or a subclass",
       "severity": "error"
     },
     {
@@ -240,10 +772,59 @@
       "severity": "error"
     },
     {
+      "column": 43,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 39,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 14,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 38,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `clear` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 43,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 30,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "explicit-any",
       "concise_description": "Explicit `Any` is not allowed",
+      "severity": "error"
+    },
+    {
+      "column": 44,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of attribute `message` is an explicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 20,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of attribute `dismiss` is an explicit `Any`",
       "severity": "error"
     },
     {
@@ -254,6 +835,34 @@
       "severity": "error"
     },
     {
+      "column": 14,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 38,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `append` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 44,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 45,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of this argument is an explicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 9,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "unused-call-result",
@@ -261,10 +870,31 @@
       "severity": "error"
     },
     {
+      "column": 17,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 23,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 23,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "unknown-variable-type",
       "concise_description": "The type of `locator` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_current_frame_locators` is partially unknown; it contains an implicit `Any`",
       "severity": "error"
     },
     {
@@ -282,6 +912,27 @@
       "severity": "error"
     },
     {
+      "column": 37,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 17,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 23,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 23,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "unknown-variable-type",
@@ -289,10 +940,31 @@
       "severity": "error"
     },
     {
+      "column": 28,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 56,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "unknown-attribute-access",
       "concise_description": "The type of attribute `locator` is unknown; it is inferred as an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 34,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 95,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `all` is partially unknown; it contains an implicit `Any`",
       "severity": "error"
     },
     {
@@ -317,6 +989,27 @@
       "severity": "error"
     },
     {
+      "column": 17,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 20,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 25,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 53,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "unknown-attribute-access",
@@ -332,13 +1025,6 @@
     },
     {
       "column": 56,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "explicit-any",
-      "concise_description": "Explicit `Any` is not allowed",
-      "severity": "error"
-    },
-    {
-      "column": 64,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "explicit-any",
       "concise_description": "Explicit `Any` is not allowed",
@@ -366,10 +1052,45 @@
       "severity": "error"
     },
     {
+      "column": 13,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of `arg` is an explicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 43,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "protected-access",
+      "concise_description": "Protected attribute `_resolve_element_handle` cannot be accessed outside of its defining class or a subclass",
+      "severity": "error"
+    },
+    {
+      "column": 39,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of this argument is an explicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 41,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "implicit-any-type-argument",
       "concise_description": "Cannot determine the type parameter `_T` for generic class `list[_T]`",
+      "severity": "error"
+    },
+    {
+      "column": 21,
+      "path": "playwright_webdriver/playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `_current_frame_locators` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 16,
+      "path": "playwright_webdriver/playwright_web_element.py",
+      "name": "protected-access",
+      "concise_description": "Protected attribute `_elements` cannot be accessed outside of its defining class or a subclass",
       "severity": "error"
     },
     {
@@ -415,6 +1136,13 @@
       "severity": "error"
     },
     {
+      "column": 36,
+      "path": "playwright_webdriver/runner.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `create` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 32,
       "path": "playwright_webdriver/runner.py",
       "name": "explicit-any",
@@ -457,6 +1185,27 @@
       "severity": "error"
     },
     {
+      "column": 26,
+      "path": "playwright_webdriver/runner.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 19,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of `original` is an explicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 48,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of this argument is an explicit `Any`",
+      "severity": "error"
+    },
+    {
       "column": 5,
       "path": "playwright_webdriver/runner.py",
       "name": "unused-call-result",
@@ -468,6 +1217,62 @@
       "path": "playwright_webdriver/runner.py",
       "name": "unused-call-result",
       "concise_description": "Result of call expression is of type `Action` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 25,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of this argument is an explicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 30,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of attribute `script` is an explicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 38,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of this argument is an explicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 52,
+      "path": "playwright_webdriver/runner.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of attribute `headless` is an explicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 1,
+      "path": "tests/conftest.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 12,
+      "path": "tests/conftest.py",
+      "name": "protected-access",
+      "concise_description": "Protected attribute `_clear_state` cannot be accessed outside of its defining class or a subclass",
+      "severity": "error"
+    },
+    {
+      "column": 1,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 49,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "protected-access",
+      "concise_description": "Protected attribute `_impl_obj` cannot be accessed outside of its defining class or a subclass",
       "severity": "error"
     },
     {
@@ -475,6 +1280,48 @@
       "path": "tests/test_playwright_web_driver.py",
       "name": "implicit-any-parameter",
       "concise_description": "`test_cookie` is missing an annotation for parameter `http_server`",
+      "severity": "error"
+    },
+    {
+      "column": 9,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `add_cookie` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 20,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 17,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of `retrieved` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 21,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get_cookie` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 12,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of this argument is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 16,
+      "path": "tests/test_playwright_web_driver.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get_cookie` is partially unknown; it contains an implicit `Any`",
       "severity": "error"
     },
     {
@@ -503,6 +1350,69 @@
       "path": "tests/test_playwright_web_driver.py",
       "name": "unused-call-result",
       "concise_description": "Result of call expression is of type `int` and is not used; assign to `_` if this is intentional",
+      "severity": "error"
+    },
+    {
+      "column": 1,
+      "path": "tests/test_seleniumlibrary.py",
+      "name": "untyped-import-no-stubs",
+      "concise_description": "Module `SeleniumLibrary.keywords.browsermanagement` has no type stubs or `py.typed` marker",
+      "severity": "error"
+    },
+    {
+      "column": 12,
+      "path": "tests/test_seleniumlibrary.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `register_driver` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 8,
+      "path": "tests/test_seleniumlibrary.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `go_to` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 8,
+      "path": "tests/test_seleniumlibrary.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `go_to` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 29,
+      "path": "tests/test_seleniumlibrary.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `get_element_attribute` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 8,
+      "path": "tests/test_seleniumlibrary.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `go_to` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 22,
+      "path": "tests/test_seleniumlibrary.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `press_keys` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 22,
+      "path": "tests/test_seleniumlibrary.py",
+      "name": "partially-unknown-type",
+      "concise_description": "The type of attribute `press_keys` is partially unknown; it contains an implicit `Any`",
+      "severity": "error"
+    },
+    {
+      "column": 25,
+      "path": "tests/test_seleniumlibrary.py",
+      "name": "explicit-any-use",
+      "concise_description": "The type of `clipboard_content` is an explicit `Any`",
       "severity": "error"
     }
   ]
