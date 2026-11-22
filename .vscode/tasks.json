@@ -118,6 +118,17 @@
       "presentation": {
         "clear": true
       }
+    },
+    {
+      "label": "docs",
+      "type": "shell",
+      "command": "./pw",
+      "args": [
+        "docs"
+      ],
+      "presentation": {
+        "clear": true
+      }
     }
   ]
 }

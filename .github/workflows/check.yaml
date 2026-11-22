@@ -33,3 +33,6 @@ jobs:
 
       - run: ./pw uv run rumdl check --deny-config-warnings
         if: always()
+
+      - run: ./pw uv run zensical build --strict
+        if: always()
