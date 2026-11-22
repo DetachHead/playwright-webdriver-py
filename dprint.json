@@ -1,6 +1,8 @@
 {
   "json": { "trailingCommas": "never" },
-  "markdown": {},
+  "markdown": {
+    "list.indentKind": "pythonMarkdown"
+  },
   "toml": {},
   "yaml": {},
   "excludes": [

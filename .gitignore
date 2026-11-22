@@ -38,3 +38,6 @@ htmlcov/
 # Playwright
 playwright-report/
 test-results/
+
+# zensical
+site
