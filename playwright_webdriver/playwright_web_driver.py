@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import contextlib
-import re
 import uuid
 from collections.abc import Generator
 from typing import TYPE_CHECKING, Any, Final, Never, Self, cast, override
@@ -11,6 +10,7 @@ from playwright.sync_api import (
     Browser,
     BrowserContext,
     BrowserType,
+    FrameLocator,
     Page,
     Playwright,
     sync_playwright,
@@ -32,9 +32,6 @@ if TYPE_CHECKING:
 
     from selenium.webdriver.remote.webdriver import WebDriver
     from selenium.webdriver.support.relative_locator import RelativeBy
-
-
-_RE_ARGUMENTS = re.compile(r"arguments\[(?P<number>[0-9]+)\]")
 
 
 # we pretend to extend WebDriver to trick type checkers into thinking PlaywrightWebDriver is a
@@ -82,7 +79,7 @@ class PlaywrightWebDriver(_BaseWebDriver):
         self._window_handles_in_order: list[str] = []
 
         # frame stack for SwitchTo().frame(…)
-        self._current_frame_locators: list = []
+        self._current_frame_locators: list[FrameLocator] = []
 
         # last alert text captured by the dialog handler
         self._last_alert_text: str | None = None
@@ -290,8 +287,13 @@ class PlaywrightWebDriver(_BaseWebDriver):
     def execute_script(self, script: str, *args: Any) -> object:
         script, args = self._convert_script(script, list(args))
         if self._current_frame_locators:
-            return self._current_frame_locators[-1].owner.evaluate(script, args)
-        return self._current_page.evaluate(script, args)
+            return (
+                self
+                ._current_frame_locators[-1]
+                .locator("html")
+                .evaluate(f"(element, arguments) => {script}", args)
+            )
+        return self._current_page.evaluate(f"(arguments) => {script}", args)
 
     @override
     def execute_async_script(self, script: str, *args: Any) -> Any:
@@ -309,11 +311,6 @@ class PlaywrightWebDriver(_BaseWebDriver):
 
         # convert statement to an expression - Playwright uses expression mode
         script = f"(() => {{{script}}})()"
-
-        # Wrap scripts that reference ``arguments[N]`` so Playwright receives
-        # them as a named parameter.
-        if _RE_ARGUMENTS.search(script):
-            script = f"arguments => {script}"
 
         return script, converted_args
 

@@ -219,13 +219,6 @@
       "severity": "error"
     },
     {
-      "column": 39,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "implicit-any-type-argument",
-      "concise_description": "Cannot determine the type parameter `_T` for generic class `list[_T]`",
-      "severity": "error"
-    },
-    {
       "column": 25,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "implicit-any-type-argument",
@@ -261,41 +254,6 @@
       "severity": "error"
     },
     {
-      "column": 23,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "unknown-variable-type",
-      "concise_description": "The type of `locator` is unknown; it is inferred as an implicit `Any`",
-      "severity": "error"
-    },
-    {
-      "column": 56,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "unknown-attribute-access",
-      "concise_description": "The type of attribute `locator` is unknown; it is inferred as an implicit `Any`",
-      "severity": "error"
-    },
-    {
-      "column": 73,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "unknown-attribute-access",
-      "concise_description": "The type of attribute `first` is unknown; it is inferred as an implicit `Any`",
-      "severity": "error"
-    },
-    {
-      "column": 23,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "unknown-variable-type",
-      "concise_description": "The type of `locator` is unknown; it is inferred as an implicit `Any`",
-      "severity": "error"
-    },
-    {
-      "column": 56,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "unknown-attribute-access",
-      "concise_description": "The type of attribute `locator` is unknown; it is inferred as an implicit `Any`",
-      "severity": "error"
-    },
-    {
       "column": 9,
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "unused-call-result",
@@ -314,20 +272,6 @@
       "path": "playwright_webdriver/playwright_web_driver.py",
       "name": "bad-assignment",
       "concise_description": "`list[Any]` is not assignable to `tuple[Any, ...]`",
-      "severity": "error"
-    },
-    {
-      "column": 53,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "unknown-attribute-access",
-      "concise_description": "The type of attribute `owner` is unknown; it is inferred as an implicit `Any`",
-      "severity": "error"
-    },
-    {
-      "column": 59,
-      "path": "playwright_webdriver/playwright_web_driver.py",
-      "name": "unknown-attribute-access",
-      "concise_description": "The type of attribute `evaluate` is unknown; it is inferred as an implicit `Any`",
       "severity": "error"
     },
     {
@@ -478,14 +422,14 @@
       "severity": "error"
     },
     {
-      "column": 12,
+      "column": 16,
       "path": "tests/test_playwright_web_driver.py",
       "name": "redundant-condition",
       "concise_description": "Function object `playwright_webdriver.playwright_web_element.PlaywrightWebElement.is_displayed` used as condition. It's equivalent to `True`",
       "severity": "error"
     },
     {
-      "column": 12,
+      "column": 16,
       "path": "tests/test_playwright_web_driver.py",
       "name": "redundant-condition",
       "concise_description": "Function object `playwright_webdriver.playwright_web_element.PlaywrightWebElement.is_displayed` used as condition. It's equivalent to `True`",

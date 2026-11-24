@@ -191,24 +191,38 @@ def test_form_submit(driver: PlaywrightWebDriver):
     assert driver.find_element(By.ID, "host").text == "Hello, world!"
 
 
-def test_iframe(driver: PlaywrightWebDriver):
-    driver.get(page_url("iframe.html"))
+class TestIframe:
+    @staticmethod
+    def test_normal(driver: PlaywrightWebDriver):
+        driver.get(page_url("iframe.html"))
 
-    # Root page content is visible
-    root_span = driver.find_element(By.ID, "iframe-root-page1")
-    assert root_span.is_displayed
+        # Root page content is visible
+        root_span = driver.find_element(By.ID, "iframe-root-page1")
+        assert root_span.is_displayed
 
-    # Switch into the iframe
-    frame_el = driver.find_element(By.ID, "frame1")
-    driver.switch_to.frame(frame_el)
+        # Switch into the iframe
+        frame_el = driver.find_element(By.ID, "frame1")
+        driver.switch_to.frame(frame_el)
 
-    # Content inside the iframe
-    inner = driver.find_element(By.ID, "host")
-    assert inner.text == "Window1!"
+        # Content inside the iframe
+        inner = driver.find_element(By.ID, "host")
+        assert inner.text == "Window1!"
 
-    # Navigate back to parent
-    driver.switch_to.parent_frame()
-    assert driver.find_element(By.ID, "iframe-root-page1").is_displayed
+        # Navigate back to parent
+        driver.switch_to.parent_frame()
+        assert driver.find_element(By.ID, "iframe-root-page1").is_displayed
+
+    @staticmethod
+    def test_execute_script(driver: PlaywrightWebDriver):
+        driver.get(page_url("iframe.html"))
+
+        # Switch into the iframe
+        frame_el = driver.find_element(By.ID, "frame1")
+        driver.switch_to.frame(frame_el)
+
+        element_id = "host"
+        inner = driver.find_element(By.ID, element_id)
+        assert driver.execute_script("return arguments[0].getAttribute('id')", inner) == element_id
 
 
 def test_popup(driver: PlaywrightWebDriver):
