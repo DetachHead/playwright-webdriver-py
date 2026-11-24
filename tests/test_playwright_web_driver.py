@@ -198,7 +198,7 @@ class TestIframe:
 
         # Root page content is visible
         root_span = driver.find_element(By.ID, "iframe-root-page1")
-        assert root_span.is_displayed
+        assert root_span.is_displayed()
 
         # Switch into the iframe
         frame_el = driver.find_element(By.ID, "frame1")
@@ -210,7 +210,7 @@ class TestIframe:
 
         # Navigate back to parent
         driver.switch_to.parent_frame()
-        assert driver.find_element(By.ID, "iframe-root-page1").is_displayed
+        assert driver.find_element(By.ID, "iframe-root-page1").is_displayed()
 
     @staticmethod
     def test_execute_script(driver: PlaywrightWebDriver):

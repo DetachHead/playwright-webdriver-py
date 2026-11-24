@@ -422,20 +422,6 @@
       "severity": "error"
     },
     {
-      "column": 16,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "redundant-condition",
-      "concise_description": "Function object `playwright_webdriver.playwright_web_element.PlaywrightWebElement.is_displayed` used as condition. It's equivalent to `True`",
-      "severity": "error"
-    },
-    {
-      "column": 16,
-      "path": "tests/test_playwright_web_driver.py",
-      "name": "redundant-condition",
-      "concise_description": "Function object `playwright_webdriver.playwright_web_element.PlaywrightWebElement.is_displayed` used as condition. It's equivalent to `True`",
-      "severity": "error"
-    },
-    {
       "column": 5,
       "path": "tests/test_playwright_web_driver.py",
       "name": "unused-call-result",
